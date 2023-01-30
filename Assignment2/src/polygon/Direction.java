@@ -3,7 +3,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 enum Direction {
-    LEFT("LEFT"), RIGHT("RIGHT"), BOTTOM("BOTTOM"), TOP("TOP");
+    LEFT("LEFT", true, false),
+    RIGHT("RIGHT", true, true),
+    BOTTOM("BOTTOM", false, false),
+    TOP("TOP", false, true);
 
     // Direction property indicating if the direction is horizontal (LEFT or RIGHT)
     private boolean horizontal;
@@ -12,28 +15,12 @@ enum Direction {
     static final Set<Direction> HORIZONTAL_BOUNDS = new HashSet<>(Arrays.asList(Direction.LEFT, Direction.RIGHT));
     static final Set<Direction> VERTICAL_BOUNDS = new HashSet<>(Arrays.asList(Direction.BOTTOM, Direction.TOP));
     private final String direction;
-    private Direction(String direction) {
+    private Direction(String direction, boolean horizontal, boolean increment) {
         assert(direction.equals("LEFT") || direction.equals("RIGHT") ||
                 direction.equals("BOTTOM") || direction.equals("TOP"));
         this.direction = direction;
-        switch(direction) {
-            case "LEFT":
-                this.horizontal = true;
-                this.increment = false;
-                break;
-            case "RIGHT":
-                this.horizontal = true;
-                this.increment = true;
-                break;
-            case "TOP":
-                this.horizontal = false;
-                this.increment = true;
-                break;
-            case "BOTTOM":
-                this.horizontal = false;
-                this.increment = false;
-                break;
-        }
+        this.horizontal = horizontal;
+        this.increment = increment;
     }
 
 }
