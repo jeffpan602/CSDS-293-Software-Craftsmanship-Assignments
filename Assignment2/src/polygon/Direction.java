@@ -13,6 +13,8 @@ enum Direction {
     static final Set<Direction> VERTICAL_BOUNDS = new HashSet<>(Arrays.asList(Direction.BOTTOM, Direction.TOP));
     private final String direction;
     private Direction(String direction) {
+        assert(direction.equals("LEFT") || direction.equals("RIGHT") ||
+                direction.equals("BOTTOM") || direction.equals("TOP"));
         this.direction = direction;
         switch(direction) {
             case "LEFT":
