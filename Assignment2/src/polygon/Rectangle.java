@@ -10,8 +10,6 @@ public class Rectangle<T> {
         this.borders = borders;
     }
 
-    //public static Rectangle of()
-
     /**
      * @param direction
      * @return the border corresponding to the given direction bound
@@ -19,7 +17,6 @@ public class Rectangle<T> {
     T getBorder(Direction direction) {
       return borders.get(direction);
     }
-
     /**
      * @param directions
      * @return the borders corresponding to the given directions bounds
@@ -32,5 +29,16 @@ public class Rectangle<T> {
         return ans;
     }
 
-
+    public T bottom() {
+        return getBorder(Direction.BOTTOM);
+    }
+    public T top() {
+        return getBorder(Direction.TOP);
+    }
+    public T left() {
+        return getBorder(Direction.LEFT);
+    }
+    public T right() {
+        return getBorder(Direction.RIGHT);
+    }
 }
