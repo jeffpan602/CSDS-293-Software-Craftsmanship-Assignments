@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Set;
 
 public final class RectangleException extends Exception {
-
+     public static final long serialVersionUID = 293L;
      public enum Error {
         NULL_POINTERS, INVALID_BOUNDS;
     }
