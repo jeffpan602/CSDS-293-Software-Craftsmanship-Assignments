@@ -19,6 +19,7 @@ public final class AxisMap<S> {
      * @return Map of indices and the associated values sorted
      */
     private Map<S, Integer> index(Collection<S> coordinates) {
+        assert coordinates != null: "Coordinates must have a value";
 
         Map<S, Integer> indexes = new HashMap<>();
 
@@ -36,7 +37,9 @@ public final class AxisMap<S> {
      * @param <S>
      */
      static <S extends Comparable<S>> AxisMap from(Collection<S> coordinates) {
-        return new AxisMap(coordinates);
+         assert coordinates != null: "Coordinates must have a value";
+
+         return new AxisMap(coordinates);
     }
 
     /**

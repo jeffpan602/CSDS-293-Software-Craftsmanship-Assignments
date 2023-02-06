@@ -24,6 +24,10 @@ public class PlaneMap<S> {
      * @param <S>
      */
     public static <S extends Comparable<S>> PlaneMap of(Collection<S> x, Collection<S> y) {
+        if(x == null || y == null) {
+            throw new IllegalArgumentException("Inputs x and y must be non-null");
+        }
+
         return new PlaneMap(AxisMap.from(x), AxisMap.from(y));
     }
     /**
