@@ -33,7 +33,7 @@ public final class Grid implements Iterable<IndexPair> {
         PlaneMap rectangleGrid = PlaneMap.from(rectangleSet);
 
         Iterator<IndexPair> it = new Iterator<IndexPair>() {
-
+            //use rectangle bottom, left. etc
             IndexPair coordinate = new IndexPair((rectangleGrid.getX().flatIndexOf(0)), rectangleGrid.getY().flatIndexOf(0));
             int topBorder = rectangleGrid.getX().size();
             int rightBorder = rectangleGrid.getY().size();

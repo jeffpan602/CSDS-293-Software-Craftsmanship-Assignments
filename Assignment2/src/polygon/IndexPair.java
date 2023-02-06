@@ -25,10 +25,18 @@ public record IndexPair(Integer xIndex, Integer yIndex) implements Comparable<In
      * @return incremented Index Pair
      */
     public IndexPair increment(Direction direction) {
-        int horizontal = direction.isHorizontal() ? 1 : 0;
-        int increment = direction.isIncrement() ? 1: 0;
+        //have a null check for the argument
+        switch(direction) {
+            case LEFT:
+                return new IndexPair(this.xIndex()-1, this.yIndex());
+            case RIGHT:
+                return new IndexPair(this.xIndex()+1, this.yIndex());
+            case BOTTOM:
+                return new IndexPair(this.xIndex(), this.yIndex()-1);
+            default:
+                return new IndexPair(this.xIndex(), this.yIndex()+1);
+        }
 
-        return new IndexPair(this.xIndex() + horizontal, this.yIndex + increment);
     }
 }
        

@@ -86,6 +86,7 @@ public class PlaneMap<S> {
         Collection xCoordinates = new HashSet<>();
         Collection yCoordinates = new HashSet<>();
         for(Rectangle rectangle: rectangles) {
+            //use getBorders and horizontal and vertical bounds
             xCoordinates.add(rectangle.bottom());
             xCoordinates.add(rectangle.top());
             yCoordinates.add(rectangle.left());

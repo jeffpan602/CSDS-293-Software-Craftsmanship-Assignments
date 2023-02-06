@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class AxisMap<S> {
 
@@ -17,14 +19,17 @@ public final class AxisMap<S> {
      * Returns the indices of input coordinates sorted by associated value
      * @param coordinates
      * @return Map of indices and the associated values sorted
+     *
+     * rename method to something else
      */
     private Map<S, Integer> index(Collection<S> coordinates) {
         assert coordinates != null: "Coordinates must have a value";
 
         Map<S, Integer> indexes = new HashMap<>();
 
-        coordinates.stream().sorted();
+        coordinates = coordinates.stream().sorted().collect(Collectors.toList());
         int i = 0;
+        //check for duplicate axis values and don't include
         for(S coordinate: coordinates) {
             indexes.put(coordinate, i);
         }
@@ -65,13 +70,6 @@ public final class AxisMap<S> {
      */
     public Optional<Integer> indexOf(S value) {
 
-        Optional<Integer> index = Optional.of(flatIndexOf(value));
-        if(index.isPresent()) {
-            return index;
-        }
-        else {
-            return null;
-        }
-
+        return Optional.ofNullable(flatIndexOf(value));
     }
 }
