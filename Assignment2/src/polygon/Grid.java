@@ -1,5 +1,6 @@
 package polygon;
 
+import java.util.HashSet;
 import java.util.Iterator;
 
 public final class Grid implements Iterable<IndexPair> {
@@ -25,19 +26,41 @@ public final class Grid implements Iterable<IndexPair> {
      */
     @Override
     public Iterator<IndexPair> iterator() {
-        Iterator<IndexPair> it = new Iterator<IndexPair>() {
-            
 
+        //Making a PlaneMap based on this Grid
+        HashSet<Rectangle> rectangleSet = new HashSet<>();
+        rectangleSet.add(this.getRectangle());
+        PlaneMap rectangleGrid = PlaneMap.from(rectangleSet);
+
+        Iterator<IndexPair> it = new Iterator<IndexPair>() {
+
+            IndexPair coordinate = new IndexPair((rectangleGrid.getX().flatIndexOf(0)), rectangleGrid.getY().flatIndexOf(0));
+            int topBorder = rectangleGrid.getX().size();
+            int rightBorder = rectangleGrid.getY().size();
             @Override
             public boolean hasNext() {
-                return false;
+                return (coordinate.xIndex() < rightBorder) && (coordinate.yIndex() < topBorder);
             }
 
             @Override
             public IndexPair next() {
-                return null;
+                if(coordinate.yIndex()+1 != topBorder) {
+                    coordinate.increment(Direction.TOP);
+                }
+                else {
+                    coordinate = new IndexPair(coordinate.xIndex()+1, rectangleGrid.getY().flatIndexOf(0));
+                }
+                return coordinate;
             }
         };
         return it;
+    }
+
+    /**
+     * Getter method for Grid rectangle field
+     * @return Rectangle<Integer>
+     */
+    public Rectangle<Integer> getRectangle() {
+        return this.rectangle;
     }
 }

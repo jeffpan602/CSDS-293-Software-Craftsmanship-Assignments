@@ -1,6 +1,7 @@
 package polygon;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -78,12 +79,15 @@ public class PlaneMap<S> {
      * @return PlaneMap based on border coordinates
      */
     public static PlaneMap from(Set<Rectangle> rectangles) {
-
-        //HELPPPPPPPPPPPPP :((((((
+        Collection xCoordinates = new HashSet<>();
+        Collection yCoordinates = new HashSet<>();
         for(Rectangle rectangle: rectangles) {
-
+            xCoordinates.add(rectangle.bottom());
+            xCoordinates.add(rectangle.top());
+            yCoordinates.add(rectangle.left());
+            yCoordinates.add(rectangle.right());
         }
-        return null;
+        return PlaneMap.of(xCoordinates, yCoordinates);
     }
     /**
      * Getter method for the horizontal AxisMap
