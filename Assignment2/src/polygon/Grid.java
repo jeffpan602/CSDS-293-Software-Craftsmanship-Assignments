@@ -17,7 +17,7 @@ public final class Grid implements Iterable<IndexPair> {
      * @return Grid based on input Rectangle
      */
     public static Grid from(Rectangle<Integer> rectangle) {
-        return new Grid(Rectangle.of(rectangle.left(), rectangle.right(), rectangle.bottom(), rectangle.top()));
+        return new Grid(Rectangle.copyOf(rectangle));
     }
 
     /**

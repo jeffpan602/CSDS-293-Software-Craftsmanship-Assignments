@@ -5,24 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 public final class AxisMap<S> {
-
     private Map<S, Integer> index;
-
     private AxisMap(Collection<S> coordinates) {
-        this.index = index(coordinates);
+        this.index = sortIndexes(coordinates);
     }
 
     /**
      * Returns the indices of input coordinates sorted by associated value
      * @param coordinates
      * @return Map of indices and the associated values sorted
-     *
-     * rename method to something else
      */
-    private Map<S, Integer> index(Collection<S> coordinates) {
+    private Map<S, Integer> sortIndexes(Collection<S> coordinates) {
         assert coordinates != null: "Coordinates must have a value";
 
         Map<S, Integer> indexes = new HashMap<>();
@@ -68,8 +62,5 @@ public final class AxisMap<S> {
      * @param value
      * @return index of the input value as an int or null if value is null or value has no index
      */
-    public Optional<Integer> indexOf(S value) {
-
-        return Optional.ofNullable(flatIndexOf(value));
-    }
+    public Optional<Integer> indexOf(S value) { return Optional.ofNullable(flatIndexOf(value)); }
 }

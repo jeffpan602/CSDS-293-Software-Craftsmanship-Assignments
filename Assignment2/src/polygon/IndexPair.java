@@ -25,18 +25,26 @@ public record IndexPair(Integer xIndex, Integer yIndex) implements Comparable<In
      * @return incremented Index Pair
      */
     public IndexPair increment(Direction direction) {
-        //have a null check for the argument
-        switch(direction) {
-            case LEFT:
-                return new IndexPair(this.xIndex()-1, this.yIndex());
-            case RIGHT:
-                return new IndexPair(this.xIndex()+1, this.yIndex());
-            case BOTTOM:
-                return new IndexPair(this.xIndex(), this.yIndex()-1);
-            default:
-                return new IndexPair(this.xIndex(), this.yIndex()+1);
-        }
+        IndexPair.verifyNonNull(direction);
 
+        if(direction.isHorizontal()) {
+            return new IndexPair(this.xIndex()+this.moveByOne(direction), this.yIndex());
+        }
+        else {
+            return new IndexPair(this.xIndex(), this.yIndex()+moveByOne(direction));
+        }
+    }
+    //helper method for incrementing or decrementing an index pair x or y coordinate
+    private int moveByOne(Direction direction) {
+        return direction.isIncrement() ? 1 : -1;
+    }
+    //helper method for verifying for null arguments
+    private static void verifyNonNull(Object... arr) {
+        for(Object element: arr) {
+            if(element == null) {
+                throw new IllegalArgumentException("Arguments must be non-null");
+            }
+        }
     }
 }
        
