@@ -1,11 +1,14 @@
 package polygon;
 
+import java.util.NavigableMap;
 import java.util.Set;
 
 final class RectangleGroup<S> {
     private Set<Rectangle> rectangleSet;
     private PlaneMap<S> planeMap;
     private int[][] matrix;
+    //private final NavigableMap<IndexPair, Long> matrixGrid;
+    //private final boolean isOverlapping;
     /**
      * getter for the rectangleSet field
      * @return Set<Rectangle>
@@ -28,7 +31,7 @@ final class RectangleGroup<S> {
     public int[][] getMatrix() {
         return matrix;
     }
-    //private RectangleGroup constructor that does not through an expcetion
+    //private RectangleGroup constructor that does not through an exception
     private RectangleGroup(Set<Rectangle> rectangleSet, PlaneMap<S> planeMap, int[][] matrix) {
         this.rectangleSet = rectangleSet;
         this.planeMap = planeMap;
@@ -43,6 +46,10 @@ final class RectangleGroup<S> {
 
         PlaneMap planeMap = PlaneMap.from(rectangles);
         int[][] matrix = new int[planeMap.ySize()][planeMap.xSize()];
+
+        for(Rectangle rectangle: rectangles) {
+
+        }
 
         return new RectangleGroup(rectangles, planeMap, matrix);
     }
