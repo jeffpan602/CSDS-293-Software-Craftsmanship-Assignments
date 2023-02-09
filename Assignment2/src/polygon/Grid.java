@@ -26,29 +26,22 @@ public final class Grid implements Iterable<IndexPair> {
      */
     @Override
     public Iterator<IndexPair> iterator() {
-
-        //Making a PlaneMap based on this Grid
-        HashSet<Rectangle> rectangleSet = new HashSet<>();
-        rectangleSet.add(this.getRectangle());
-        PlaneMap rectangleGrid = PlaneMap.from(rectangleSet);
-
         Iterator<IndexPair> it = new Iterator<IndexPair>() {
-            //use rectangle bottom, left. etc
-            IndexPair coordinate = new IndexPair((rectangleGrid.getX().flatIndexOf(0)), rectangleGrid.getY().flatIndexOf(0));
-            int topBorder = rectangleGrid.getX().size();
-            int rightBorder = rectangleGrid.getY().size();
+
+            int topBorder = getRectangle().top();
+            int rightBorder = getRectangle().right();
+            IndexPair coordinate = new IndexPair(getRectangle().left(), getRectangle().bottom());
             @Override
             public boolean hasNext() {
                 return (coordinate.xIndex() < rightBorder) && (coordinate.yIndex() < topBorder);
             }
-
             @Override
             public IndexPair next() {
                 if(coordinate.yIndex()+1 != topBorder) {
                     coordinate.increment(Direction.TOP);
                 }
                 else {
-                    coordinate = new IndexPair(coordinate.xIndex()+1, rectangleGrid.getY().flatIndexOf(0));
+                    coordinate = new IndexPair(coordinate.xIndex()+1, getRectangle().bottom());
                 }
                 return coordinate;
             }

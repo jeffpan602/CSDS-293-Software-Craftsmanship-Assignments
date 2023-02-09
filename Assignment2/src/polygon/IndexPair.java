@@ -1,6 +1,19 @@
 package polygon;
 
-public record IndexPair(Integer xIndex, Integer yIndex) implements Comparable<IndexPair>{
+public class IndexPair implements Comparable<IndexPair> {
+    private Integer xIndex;
+    private Integer yIndex;
+    public IndexPair(Integer xIndex, Integer yIndex) {
+        this.xIndex = xIndex;
+        this.yIndex = yIndex;
+    }
+    public Integer xIndex() {
+        return this.xIndex;
+    }
+    public Integer yIndex() {
+        return this.yIndex;
+    }
+
     /**
      * Compares two IndexPair objects based on values of x coordinates and y coordinates
      * Given p1(x1, y1) and p2(x2, y2), if x1 > x2 then p1 > p2; if x1 < x2 then p1 < p2

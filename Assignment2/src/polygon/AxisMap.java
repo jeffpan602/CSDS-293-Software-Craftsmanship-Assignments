@@ -23,9 +23,10 @@ public final class AxisMap<S> {
 
         coordinates = coordinates.stream().sorted().collect(Collectors.toList());
         int i = 0;
-        //check for duplicate axis values and don't include
         for(S coordinate: coordinates) {
-            indexes.put(coordinate, i);
+            if(!indexes.containsKey(coordinate)) {
+                indexes.put(coordinate, i);
+            }
         }
         return indexes;
     }

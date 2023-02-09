@@ -1,6 +1,7 @@
 package polygon;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public final class RectangleException extends Exception {
@@ -64,7 +65,9 @@ public final class RectangleException extends Exception {
                 indexes.add(i);
             }
         }
-        throw new IllegalArgumentException(new RectangleException(indexes));
+        if(!indexes.isEmpty()) {
+            throw new IllegalArgumentException(new RectangleException(indexes));
+        }
     }
 
 }
