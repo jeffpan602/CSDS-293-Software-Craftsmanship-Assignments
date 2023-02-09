@@ -37,13 +37,14 @@ public final class Grid implements Iterable<IndexPair> {
             }
             @Override
             public IndexPair next() {
+                IndexPair next = coordinate;
                 if(coordinate.yIndex()+1 != topBorder) {
-                    coordinate.increment(Direction.TOP);
+                    coordinate  = coordinate.increment(Direction.TOP);
                 }
                 else {
                     coordinate = new IndexPair(coordinate.xIndex()+1, getRectangle().bottom());
                 }
-                return coordinate;
+                return next;
             }
         };
         return it;

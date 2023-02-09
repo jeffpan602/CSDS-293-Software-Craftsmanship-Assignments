@@ -26,8 +26,14 @@ public class Assignment3Tester {
         IndexPair coordinate = new IndexPair(1, 1);
         Grid grid = Grid.from(Rectangle.of(1,4,1,5));
         Iterator<IndexPair> it = grid.iterator();
-        
-
+//        IndexPair a = it.next();
+//        System.out.println("("+a.xIndex()+", "+ a.yIndex()+")");
+//        IndexPair b = it.next();
+//        System.out.println("("+b.xIndex()+", "+ b.yIndex()+")");
+        while(it.hasNext()) {
+            IndexPair next = it.next();
+            System.out.println("("+next.xIndex()+", "+ next.yIndex()+")");
+        }
     }
 }
 
