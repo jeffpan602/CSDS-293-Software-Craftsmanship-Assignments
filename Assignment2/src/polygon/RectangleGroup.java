@@ -2,12 +2,12 @@ package polygon;
 
 import java.util.NavigableMap;
 import java.util.Set;
+import java.util.TreeMap;
 
 final class RectangleGroup<S> {
     private Set<Rectangle> rectangleSet;
     private PlaneMap<S> planeMap;
-    private int[][] matrix;
-    //private final NavigableMap<IndexPair, Long> matrixGrid;
+    private final NavigableMap<IndexPair, Long> matrixGrid;
     //private final boolean isOverlapping;
     /**
      * getter for the rectangleSet field
@@ -24,18 +24,11 @@ final class RectangleGroup<S> {
     public PlaneMap<S> getPlaneMap() {
         return planeMap;
     }
-    /**
-     * getter for the matrix field
-     * @return int[][]
-     */
-    public int[][] getMatrix() {
-        return matrix;
-    }
     //private RectangleGroup constructor that does not through an exception
-    private RectangleGroup(Set<Rectangle> rectangleSet, PlaneMap<S> planeMap, int[][] matrix) {
+    private RectangleGroup(Set<Rectangle> rectangleSet, PlaneMap<S> planeMap, NavigableMap<IndexPair, Long> matrixGrid) {
         this.rectangleSet = rectangleSet;
         this.planeMap = planeMap;
-        this.matrix = matrix;
+        this.matrixGrid = matrixGrid;
     }
     /**
      * Method to create a RectangleGroup from an input set of Rectangles
@@ -45,12 +38,12 @@ final class RectangleGroup<S> {
     static RectangleGroup from(Set<Rectangle> rectangles) {
 
         PlaneMap planeMap = PlaneMap.from(rectangles);
-        int[][] matrix = new int[planeMap.ySize()][planeMap.xSize()];
+        NavigableMap<IndexPair, Long> matrixGrid = new TreeMap<>();
 
         for(Rectangle rectangle: rectangles) {
-
+            
         }
 
-        return new RectangleGroup(rectangles, planeMap, matrix);
+        return new RectangleGroup(rectangles, planeMap, null);
     }
 }
