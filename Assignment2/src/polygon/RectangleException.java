@@ -1,15 +1,14 @@
 package polygon;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 public final class RectangleException extends Exception {
-     public static final long serialVersionUID = 293L;
-     public enum Error {
-        NULL_POINTERS, INVALID_BOUNDS;
-    }
+    public static final long serialVersionUID = 293L;
 
+    public enum Error {
+        NULL_POINTERS, INVALID_BOUNDS
+    }
     private final Error error;
     private final Set<Integer> indexes;
     private final Object lesserBound;
@@ -17,34 +16,34 @@ public final class RectangleException extends Exception {
 
     //RectangleException in which a generic error occurs
     RectangleException(Error e) {
-        error = e;
-        indexes = null;
-        lesserBound = null;
-        greaterBound = null;
+        this.error = e;
+        this.indexes = null;
+        this.lesserBound = null;
+        this.greaterBound = null;
     }
 
     //RectangleException in which an error with rectangle indices occurs
     RectangleException(Set<Integer> indexSet) {
-        error = Error.NULL_POINTERS;
-        indexes = indexSet;
-        lesserBound = null;
-        greaterBound = null;
+        this.error = Error.NULL_POINTERS;
+        this.indexes = indexSet;
+        this.lesserBound = null;
+        this.greaterBound = null;
     }
 
     //RectangleException in which an error with rectangle boundaries occurs
     RectangleException(Error e, Object lessBound, Object greatBound) {
-        error = e;
-        indexes = null;
-        lesserBound = lessBound;
-        greaterBound = greatBound;
+        this.error = e;
+        this.indexes = null;
+        this.lesserBound = lessBound;
+        this.greaterBound = greatBound;
     }
 
     /**
      * Method to verify the input rectangular boundaries are proper
      * Throws an IllegalArgumentException with a INVALID_BOUNDS RectangleException containing the bounds
-     * @param lesserBound
-     * @param greaterBound
-     * @param <S>
+     * @param lesserBound the lesser rectangle bound
+     * @param greaterBound the greater rectangle bound
+     * @param <S> generic type for the rectangle border
      */
     public static <S extends Comparable<S>> void verifyBounds(S lesserBound, S greaterBound) {
         if(lesserBound.compareTo(greaterBound) > 0) {
@@ -55,7 +54,7 @@ public final class RectangleException extends Exception {
     /**
      * Method to verify if any input Object is null
      * Throws an IllegalArgumentException with a NULL_POINTERS RectangleException
-     * @param arr
+     * @param arr inputs that can potentially be null
      */
     public static void verifyNonNull(Object... arr) {
         Set<Integer> indexes = new HashSet<>();

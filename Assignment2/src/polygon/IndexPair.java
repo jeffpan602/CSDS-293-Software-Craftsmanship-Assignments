@@ -1,18 +1,18 @@
 package polygon;
 
-public record IndexPair(Integer xIndex, Integer yIndex) implements Comparable<IndexPair> {
-//    private Integer xIndex;
-//    private Integer yIndex;
-//    public IndexPair(Integer xIndex, Integer yIndex) {
-//        this.xIndex = xIndex;
-//        this.yIndex = yIndex;
-//    }
-//    public Integer xIndex() {
-//        return this.xIndex;
-//    }
-//    public Integer yIndex() {
-//        return this.yIndex;
-//    }
+public class /*record*/ IndexPair /*(Integer xIndex, Integer yIndex)*/ implements Comparable<IndexPair> {
+    private final Integer xIndex;
+    private final Integer yIndex;
+    public IndexPair(Integer xIndex, Integer yIndex) {
+        this.xIndex = xIndex;
+        this.yIndex = yIndex;
+    }
+    public Integer xIndex() {
+        return this.xIndex;
+    }
+    public Integer yIndex() {
+        return this.yIndex;
+    }
 
     /**
      * Compares two IndexPair objects based on values of x coordinates and y coordinates
@@ -34,7 +34,7 @@ public record IndexPair(Integer xIndex, Integer yIndex) implements Comparable<In
 
     /**
      * Returns the Index Pair after it is incremented in direction given by the input Direction
-     * @param direction
+     * @param direction direction this IndexPair is incremented in
      * @return incremented Index Pair
      */
     public IndexPair increment(Direction direction) {

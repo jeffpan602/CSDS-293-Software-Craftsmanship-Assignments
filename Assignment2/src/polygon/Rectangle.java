@@ -12,10 +12,10 @@ public class Rectangle<T> {
 
     /**
      * Returns a new Rectangle from given its four arguments
-     * @param left
-     * @param right
-     * @param bottom
-     * @param top
+     * @param left left border for rectangle
+     * @param right right border for rectangle
+     * @param bottom bottom border for rectangle
+     * @param top top border for rectangle
      * @return new Rectangle constructed with input parameters
      */
     public static <T extends Comparable<T>> Rectangle<T> of(T left, T right, T bottom, T top) {
@@ -36,9 +36,9 @@ public class Rectangle<T> {
 
     /**
      * Returns a new copy of a given input Rectangle
-     * @param rectangle
+     * @param rectangle input rectangle that will be copied
      * @return Rectangle copy to the argument rectangle
-     * @param <T>
+     * @param <T> generic type for rectangle border
      */
     public static <T extends Comparable<T>> Rectangle<T> copyOf(Rectangle<T> rectangle) {
         //verify that the input Rectangle is not null
@@ -53,7 +53,7 @@ public class Rectangle<T> {
     }
 
     /**
-     * @param direction
+     * @param direction the direction of the border
      * @return the border corresponding to the given direction bound
      */
     T getBorder(Direction direction) {
@@ -61,14 +61,16 @@ public class Rectangle<T> {
         return borders.get(direction);
     }
     /**
-     * @param directions
+     * @param directions the directions of the borders
      * @return the borders corresponding to the given directions bounds
      */
-    EnumMap getBorders(Collection<Direction> directions) {
+    EnumMap<Direction, T> getBorders(Collection<Direction> directions) {
         assert !borders.isEmpty(): "Rectangle Borders must be defined";
-        EnumMap<Direction, T> ans = new EnumMap<Direction, T>(Direction.class);
+        EnumMap<Direction, T> ans = new EnumMap<>(Direction.class);
         for(Direction direction: directions) {
-            ans.put(direction, borders.get(direction));
+            if(!ans.containsKey(direction)) {
+                ans.put(direction, borders.get(direction));
+            }
         }
         return ans;
     }

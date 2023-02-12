@@ -1,6 +1,5 @@
 package polygon;
 
-import java.util.HashSet;
 import java.util.Iterator;
 
 public final class Grid implements Iterable<IndexPair> {
@@ -13,7 +12,7 @@ public final class Grid implements Iterable<IndexPair> {
     }
     /**
      * Returns a new Grid given an input Rectangle
-     * @param rectangle
+     * @param rectangle rectangle to provide grid borders
      * @return Grid based on input Rectangle
      */
     public static Grid from(Rectangle<Integer> rectangle) {
@@ -26,10 +25,9 @@ public final class Grid implements Iterable<IndexPair> {
      */
     @Override
     public Iterator<IndexPair> iterator() {
-        Iterator<IndexPair> it = new Iterator<IndexPair>() {
-
-            int topBorder = getRectangle().top();
-            int rightBorder = getRectangle().right();
+        return new Iterator<IndexPair>() {
+            final int topBorder = getRectangle().top();
+            final int rightBorder = getRectangle().right();
             IndexPair coordinate = new IndexPair(getRectangle().left(), getRectangle().bottom());
             @Override
             public boolean hasNext() {
@@ -47,7 +45,6 @@ public final class Grid implements Iterable<IndexPair> {
                 return next;
             }
         };
-        return it;
     }
 
     /**
