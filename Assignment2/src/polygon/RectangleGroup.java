@@ -103,7 +103,7 @@ final class RectangleGroup<S> {
     }
     //helper method to verify Rectangle.from inputs are non-null
     private static <S> void verifyNonNull(Set<Rectangle<S>> set) {
-        for(Rectangle rectangle: set) {
+        for(Rectangle<S> rectangle: set) {
             if(rectangle == null) {
                 throw new IllegalArgumentException(new RectangleException(RectangleException.Error.NULL_POINTERS));
             }
