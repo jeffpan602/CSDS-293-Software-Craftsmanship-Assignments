@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.Collections;
 
 final class RectangleGroup<S> {
     private final Set<Rectangle<S>> rectangleSet;
@@ -15,8 +16,7 @@ final class RectangleGroup<S> {
      * @return Set<Rectangle>
      */
     public Set<Rectangle<S>> getRectangleSet() {
-        return rectangleSet;
-        //return unmodifiable set
+        return Collections.unmodifiableSet(rectangleSet);
     }
     /**
      * getter for the planeMap field
@@ -51,12 +51,14 @@ final class RectangleGroup<S> {
         NavigableMap<IndexPair, Long> matrixGrid = RectangleGroup.initializeMatrixGrid(grid);
 
         for(Rectangle<S> rectangle: rectangles) {
-            //make Grid based off rectangle USING copyOf
-            int left = planeMap.indexOf(rectangle.left(),true);
-            int right = planeMap.indexOf(rectangle.right(), true);
-            int bottom = planeMap.indexOf(rectangle.bottom(),false);
-            int top = planeMap.indexOf(rectangle.top(), false);
-            //use Direction.values and getBorder and isHorizontal
+            //make Grid based off a copy of rectangle
+            Rectangle<S> rectangleCopy = Rectangle.copyOf(rectangle);
+
+            int left = planeMap.indexOf(rectangleCopy.getBorder(Direction.LEFT),Direction.LEFT.isHorizontal());
+            int right = planeMap.indexOf(rectangleCopy.getBorder(Direction.RIGHT), Direction.RIGHT.isHorizontal());
+            int bottom = planeMap.indexOf(rectangleCopy.getBorder(Direction.BOTTOM),Direction.BOTTOM.isHorizontal());
+            int top = planeMap.indexOf(rectangleCopy.getBorder(Direction.TOP), Direction.TOP.isHorizontal());
+
             Grid rectangleGrid = Grid.from(Rectangle.of(left, right, bottom ,top));
             RectangleGroup.incrementValues(matrixGrid, rectangleGrid);
         }
