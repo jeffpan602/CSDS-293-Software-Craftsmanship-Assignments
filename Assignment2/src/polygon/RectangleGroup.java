@@ -16,8 +16,8 @@ final class RectangleGroup<S> {
      */
     public Set<Rectangle<S>> getRectangleSet() {
         return rectangleSet;
+        //return unmodifiable set
     }
-
     /**
      * getter for the planeMap field
      * @return PlaneMap
@@ -51,13 +51,14 @@ final class RectangleGroup<S> {
         NavigableMap<IndexPair, Long> matrixGrid = RectangleGroup.initializeMatrixGrid(grid);
 
         for(Rectangle<S> rectangle: rectangles) {
-            //make Grid based off rectangle
+            //make Grid based off rectangle USING copyOf
             int left = planeMap.indexOf(rectangle.left(),true);
             int right = planeMap.indexOf(rectangle.right(), true);
             int bottom = planeMap.indexOf(rectangle.bottom(),false);
             int top = planeMap.indexOf(rectangle.top(), false);
+            //use Direction.values and getBorder and isHorizontal
             Grid rectangleGrid = Grid.from(Rectangle.of(left, right, bottom ,top));
-            RectangleGroup.incrementValues(rectangleGrid, matrixGrid);
+            RectangleGroup.incrementValues(matrixGrid, rectangleGrid);
         }
         boolean isOverlapping = RectangleGroup.checkForOverlap(matrixGrid);
 
@@ -89,7 +90,7 @@ final class RectangleGroup<S> {
         return false;
     }
     //helper method to increment IndexPair keys in matrixGrid
-    private static void incrementValues(Grid rectangleGrid, NavigableMap<IndexPair, Long> matrixGrid) {
+    private static void incrementValues(NavigableMap<IndexPair, Long> matrixGrid, Grid rectangleGrid) {
         for(IndexPair next: rectangleGrid) {
             matrixGrid.replace(next, matrixGrid.get(next)+1);
         }
@@ -102,6 +103,7 @@ final class RectangleGroup<S> {
         return this.matrixGrid;
     }
     //helper method to verify Rectangle.from inputs are non-null
+    //use RectangleException
     private static <S> void verifyNonNull(Set<Rectangle<S>> set) {
         for(Rectangle<S> rectangle: set) {
             if(rectangle == null) {

@@ -22,13 +22,12 @@ public final class AxisMap<S> {
 
         Map<S, Integer> indexes = new HashMap<>();
 
-        coordinates = coordinates.stream().sorted().collect(Collectors.toList());
+        coordinates = coordinates.stream().distinct().sorted().collect(Collectors.toList());
         int i = 0;
         for(S coordinate: coordinates) {
-            if(!indexes.containsKey(coordinate)) {
-                indexes.put(coordinate, i);
-                i++;
-            }
+            indexes.put(coordinate, i);
+            i++;
+
         }
         return indexes;
     }
