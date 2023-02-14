@@ -11,6 +11,7 @@ final class RectangleGroup<S> {
     private final PlaneMap<S> planeMap;
     private final NavigableMap<IndexPair, Long> matrixGrid;
     private final boolean isOverlapping;
+    //private final boolean isConnected;
     /**
      * getter for the rectangleSet field
      * @return Set<Rectangle>
@@ -62,7 +63,7 @@ final class RectangleGroup<S> {
             Grid rectangleGrid = Grid.from(Rectangle.of(left, right, bottom ,top));
             RectangleGroup.incrementValues(matrixGrid, rectangleGrid);
         }
-        boolean isOverlapping = RectangleGroup.checkForOverlap(matrixGrid);
+        boolean isOverlapping = RectangleGroup.isOverlapping(matrixGrid);
 
         return new RectangleGroup<>(rectangles, planeMap, matrixGrid, isOverlapping);
     }
@@ -83,7 +84,7 @@ final class RectangleGroup<S> {
         return matrixGrid;
     }
     //helper method to check if rectangles are overlapping in this RectangleGroup
-    private static boolean checkForOverlap(NavigableMap<IndexPair, Long> matrixGrid ) {
+    private static boolean isOverlapping(NavigableMap<IndexPair, Long> matrixGrid ) {
         for(IndexPair indexPair: matrixGrid.keySet()) {
             if(matrixGrid.get(indexPair) > 1) {
                 return true;
@@ -102,7 +103,7 @@ final class RectangleGroup<S> {
      * @return NavigableMap<IndexPair, Long> that represents the matrix grid of this RectangleGroup
      */
     public NavigableMap<IndexPair, Long> getMatrixGrid() {
-        return this.matrixGrid;
+        return Collections.unmodifiableNavigableMap(this.matrixGrid);
     }
     //helper method to verify Rectangle.from inputs are non-null
     //use RectangleException
@@ -113,6 +114,11 @@ final class RectangleGroup<S> {
             }
         }
     }
+
+    /**
+     * method to return a String representation of the matrixGrid
+     * @return String visualization of the matrixGrid
+     */
     public String matrixGridToString() {
         long[][] matrix = new long[getPlaneMap().ySize()-1][getPlaneMap().xSize()-1];
         for(IndexPair next: getMatrixGrid().keySet()) {
@@ -125,4 +131,14 @@ final class RectangleGroup<S> {
         }
         return builder.toString();
     }
+    /**
+     * Helper method/algorithm to find the connected rectangles in a RectangleGroup
+     * @return a set of Rectangles from RectangleGroup that are connected
+     */
+    Set<Rectangle<S>> component(IndexPair start, Set<Rectangle<S>> current, NavigableMap<IndexPair, Long> grid) {
+
+
+        return null;
+    }
+
 }
