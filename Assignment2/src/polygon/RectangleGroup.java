@@ -5,13 +5,15 @@ import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 final class RectangleGroup<S> {
     private final Set<Rectangle<S>> rectangleSet;
     private final PlaneMap<S> planeMap;
     private final NavigableMap<IndexPair, Long> matrixGrid;
     private final boolean isOverlapping;
-    //private final boolean isConnected;
+    private final boolean isConnected;
     /**
      * getter for the rectangleSet field
      * @return Set<Rectangle>
@@ -27,11 +29,12 @@ final class RectangleGroup<S> {
         return planeMap;
     }
     //private RectangleGroup constructor that does not throw an exception
-    private RectangleGroup(Set<Rectangle<S>> rectangleSet, PlaneMap<S> planeMap, NavigableMap<IndexPair, Long> matrixGrid, boolean isOverlapping) {
+    private RectangleGroup(Set<Rectangle<S>> rectangleSet, PlaneMap<S> planeMap, NavigableMap<IndexPair, Long> matrixGrid, boolean isOverlapping, boolean isConnected) {
         this.rectangleSet = rectangleSet;
         this.planeMap = planeMap;
         this.matrixGrid = matrixGrid;
         this.isOverlapping = isOverlapping;
+        this.isConnected = isConnected;
     }
     /**
      * Method to create a RectangleGroup from an input set of Rectangles
@@ -64,10 +67,10 @@ final class RectangleGroup<S> {
             RectangleGroup.incrementValues(matrixGrid, rectangleGrid);
         }
         boolean isOverlapping = RectangleGroup.isOverlapping(matrixGrid);
+        boolean isConnected = RectangleGroup.isConnected((Rectangle<S>) rectangles.toArray()[0], planeMap, matrixGrid);
 
-        return new RectangleGroup<>(rectangles, planeMap, matrixGrid, isOverlapping);
+        return new RectangleGroup<>(rectangles, planeMap, matrixGrid, isOverlapping, isConnected);
     }
-
     /**
      * Getter method for isOverlapping field
      * @return boolean indicating if rectangles overlap in this Rectangle Group
@@ -135,7 +138,7 @@ final class RectangleGroup<S> {
      * Algorithm to find the rectangles reachable from a given start IndexPair point
      * @return a set of IndexPairs from RectangleGroup that are connected
      */
-    Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
+    static Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
 
         current.add(start);
         for(Direction direction: Direction.values()) {
@@ -147,7 +150,21 @@ final class RectangleGroup<S> {
         return current;
     }
     //helper method to implement COMPONENT to determine if all rectangles are connected
-//    boolean isConnected(Rectangle<S> rectangle, NavigableMap<IndexPair, Long> grid) {
-//        IndexPair start = grid.
-//    }
+    private static <S> boolean isConnected(Rectangle<S> rectangle, PlaneMap<S> planeMap, NavigableMap<IndexPair, Long> grid) {
+
+        int left = planeMap.indexOf(rectangle.getBorder(Direction.LEFT),Direction.LEFT.isHorizontal());
+        int bottom = planeMap.indexOf(rectangle.getBorder(Direction.BOTTOM),Direction.BOTTOM.isHorizontal());
+        IndexPair start = new IndexPair(left, bottom);
+
+        Set<IndexPair> component = component(start,new HashSet<>(), grid);
+
+        return component.containsAll(grid.entrySet().stream().filter(i -> i.getValue() >= 1).collect(Collectors.toList()));
+    }
+    /**
+     * Getter method to return isConnected field
+     * @return boolean indicating if this RectangleGroup has its rectangles connected
+     */
+    public boolean isConnected() {
+        return isConnected;
+    }
 }

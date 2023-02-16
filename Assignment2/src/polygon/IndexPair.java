@@ -62,7 +62,7 @@ public class /*record*/ IndexPair /*(Integer xIndex, Integer yIndex)*/ implement
 
     /**
      * toString() method for IndexPair
-     * @return String representation of IndexPair as a coordinate - (x, y) 
+     * @return String representation of IndexPair as a coordinate - (x, y)
      */
     @Override
     public String toString() {
