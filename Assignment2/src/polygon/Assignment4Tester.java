@@ -92,5 +92,8 @@ public class Assignment4Tester {
 
         RectangleGroup<Integer> rectangleGroup3 = RectangleGroup.from(rSet3);
         System.out.println(rectangleGroup3.matrixGridToString());
+
+        System.out.println(rectangleGroup.getMatrixGrid().toString());
+        System.out.println(rectangleGroup.getMatrixGrid().lastKey().toString());
     }
 }

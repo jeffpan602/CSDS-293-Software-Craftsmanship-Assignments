@@ -132,19 +132,22 @@ final class RectangleGroup<S> {
         return builder.toString();
     }
     /**
-     * Helper method/algorithm to find the connected rectangles in a RectangleGroup
-     * @return a set of Rectangles from RectangleGroup that are connected
+     * Algorithm to find the rectangles reachable from a given start IndexPair point
+     * @return a set of IndexPairs from RectangleGroup that are connected
      */
     Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
 
         current.add(start);
         for(Direction direction: Direction.values()) {
             IndexPair next = start.increment(direction);
-            if(grid.containsKey(next)  && !current.contains(next)) {
+            if(grid.containsKey(next)  && grid.get(next) >= 1 && !current.contains(next)) {
                 current = component(next, current, grid);
             }
         }
         return current;
     }
-
+    //helper method to implement COMPONENT to determine if all rectangles are connected
+//    boolean isConnected(Rectangle<S> rectangle, NavigableMap<IndexPair, Long> grid) {
+//        IndexPair start = grid.
+//    }
 }
