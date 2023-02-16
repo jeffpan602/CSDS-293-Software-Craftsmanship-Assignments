@@ -135,10 +135,16 @@ final class RectangleGroup<S> {
      * Helper method/algorithm to find the connected rectangles in a RectangleGroup
      * @return a set of Rectangles from RectangleGroup that are connected
      */
-    Set<Rectangle<S>> component(IndexPair start, Set<Rectangle<S>> current, NavigableMap<IndexPair, Long> grid) {
+    Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
 
-
-        return null;
+        current.add(start);
+        for(Direction direction: Direction.values()) {
+            IndexPair next = start.increment(direction);
+            if(grid.containsKey(next)  && !current.contains(next)) {
+                current = component(next, current, grid);
+            }
+        }
+        return current;
     }
 
 }
