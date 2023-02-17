@@ -1,11 +1,6 @@
 package polygon;
 
-import java.util.Arrays;
-import java.util.NavigableMap;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 final class RectangleGroup<S> {
@@ -139,7 +134,7 @@ final class RectangleGroup<S> {
      * @return a set of IndexPairs from RectangleGroup that are connected
      */
     static Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
-
+    //make new variables to not change arguments
         current.add(start);
         for(Direction direction: Direction.values()) {
             IndexPair next = start.increment(direction);
@@ -158,7 +153,7 @@ final class RectangleGroup<S> {
 
         Set<IndexPair> component = component(start,new HashSet<>(), grid);
 
-        return component.containsAll(grid.entrySet().stream().filter(i -> i.getValue() >= 1).collect(Collectors.toList()));
+        return component.containsAll(grid.entrySet().stream().filter(i -> i.getValue() >= 1).map(Map.Entry::getKey).collect(Collectors.toSet()));
     }
     /**
      * Getter method to return isConnected field
