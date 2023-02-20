@@ -9,7 +9,7 @@ public class RectangleGroupTester {
 
     @Test
     public void testIsConnected() {
-        //Test case 1 with non-connected rectangles (only rectangle edges shared)
+        //Test case 1 with non-connected rectangles (only rectangle corners shared)
         Rectangle<String> r1 = Rectangle.of("0","2","0","1");
         Rectangle<String> r2 = Rectangle.of("2","3","1","2");
         Rectangle<String> r3 = Rectangle.of("1","2","2","3");

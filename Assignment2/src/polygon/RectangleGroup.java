@@ -114,7 +114,6 @@ final class RectangleGroup<S> {
             }
         }
     }
-
     /**
      * method to return a String representation of the matrixGrid
      * @return String visualization of the matrixGrid
