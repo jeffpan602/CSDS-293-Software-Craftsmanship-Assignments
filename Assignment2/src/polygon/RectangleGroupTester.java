@@ -2,50 +2,47 @@ package polygon;
 
 import org.junit.*;
 import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
 public class RectangleGroupTester {
 
     @Test
-    public void testComponent() {
-        Rectangle<Integer> r1 = Rectangle.of(0,2,0,1);
-        Rectangle<Integer> r2 = Rectangle.of(2,3,1,2);
-        Rectangle<Integer> r3 = Rectangle.of(1,2,2,3);
-        HashSet<Rectangle<Integer>> rSet = new HashSet<>();
+    public void testIsConnected() {
+        //Test case 1 with non-connected rectangles (only rectangle edges shared)
+        Rectangle<String> r1 = Rectangle.of("0","2","0","1");
+        Rectangle<String> r2 = Rectangle.of("2","3","1","2");
+        Rectangle<String> r3 = Rectangle.of("1","2","2","3");
+        HashSet<Rectangle<String>> rSet = new HashSet<>();
         rSet.add(r1);
         rSet.add(r2);
         rSet.add(r3);
+        RectangleGroup<String> rectangleGroup = RectangleGroup.from(rSet);
 
-        RectangleGroup<Integer> rectangleGroup = RectangleGroup.from(rSet);
+        assertFalse(rectangleGroup.isConnected());
 
-        assertTrue(rectangleGroup.getMatrixGrid().get(new IndexPair(0,0)) >= 1);
-        assertFalse(rectangleGroup.getMatrixGrid().containsKey(new IndexPair(0, -1)));
-        assertFalse(rectangleGroup.getMatrixGrid().get(new IndexPair(2, 0)) >= 1);
-        assertFalse(rectangleGroup.isOverlapping());
-    }
+        //Test case 2 with connected rectangles (rectangles overlap)
+        Rectangle<String> r4 = Rectangle.of("0", "1", "1", "3");
+        Rectangle<String> r5 = Rectangle.of("0", "2", "1", "2");
+        Rectangle<String> r6 = Rectangle.of("1", "2", "0", "2");
+        HashSet<Rectangle<String>> rSet2 = new HashSet<>();
+        rSet2.add(r4);
+        rSet2.add(r5);
+        rSet2.add(r6);
+        RectangleGroup<String> rectangleGroup2 = RectangleGroup.from(rSet2);
 
-    public static void main(String[] args) {
-        Rectangle<Integer> r1 = Rectangle.of(0,2,0,1);
-        Rectangle<Integer> r2 = Rectangle.of(2,3,1,2);
-        Rectangle<Integer> r3 = Rectangle.of(1,2,2,3);
-        HashSet<Rectangle<Integer>> rSet = new HashSet<>();
-        rSet.add(r1);
-        rSet.add(r2);
-        rSet.add(r3);
+        assertTrue(rectangleGroup2.isConnected());
 
-        RectangleGroup<Integer> rectangleGroup = RectangleGroup.from(rSet);
+        //Test case 3 with connected rectangles (rectangles border each other and don't overlap)
+        Rectangle<String> r7 = Rectangle.of("0", "2", "0", "1");
+        Rectangle<String> r8 = Rectangle.of("1", "3", "1", "2");
+        Rectangle<String> r9 = Rectangle.of("0", "2", "2", "3");
+        HashSet<Rectangle<String>> rSet3 = new HashSet<>();
+        rSet3.add(r7);
+        rSet3.add(r8);
+        rSet3.add(r9);
+        RectangleGroup<String> rectangleGroup3 = RectangleGroup.from(rSet3);
 
-//        Rectangle<Integer> r = rSet.stream().findFirst().orElseThrow(() -> new NoSuchElementException("Rectangle set is empty"));
-////        System.out.println(r.left() + " " + r.bottom());
-////        Set<IndexPair> component = RectangleGroup.component(new IndexPair(r.left(), r.bottom()),new HashSet<>(), rectangleGroup.getMatrixGrid());
-////        for(IndexPair x: component) {
-////            System.out.println(x);
-////        }
-//        System.out.println(RectangleGroup.isConnected(r, rectangleGroup.getPlaneMap(), rectangleGroup.getMatrixGrid()));
-
+        assertTrue(rectangleGroup3.isConnected());
     }
 }

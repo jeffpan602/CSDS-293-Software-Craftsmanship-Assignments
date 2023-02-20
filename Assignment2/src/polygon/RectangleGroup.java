@@ -135,14 +135,14 @@ final class RectangleGroup<S> {
      * Algorithm to find the rectangles reachable from a given start IndexPair point
      * @return a set of IndexPairs from RectangleGroup that are connected
      */
-    private static Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
+     static Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
 
         Set<IndexPair> connectedPairs = current;
 
         connectedPairs.add(start);
         for(Direction direction: Direction.values()) {
             IndexPair next = start.increment(direction);
-            if(grid.containsKey(next)  && grid.get(next) >= 1 && !connectedPairs.contains(next)) {
+            if(grid.containsKey(next)  && grid.get(next) >= 1 && !RectangleGroup.currentHasNext(connectedPairs, next)) {
                 connectedPairs = component(next, connectedPairs, grid);
             }
         }
@@ -157,7 +157,7 @@ final class RectangleGroup<S> {
 
         Set<IndexPair> component = component(start,new HashSet<>(), grid);
 
-        return component.containsAll(grid.entrySet().stream().filter(i -> i.getValue() >= 1).map(Map.Entry::getKey).collect(Collectors.toSet()));
+        return component.size() == grid.entrySet().stream().filter(i -> i.getValue() >= 1).map(Map.Entry::getKey).collect(Collectors.toSet()).size();
     }
     /**
      * Getter method to return isConnected field
@@ -165,5 +165,14 @@ final class RectangleGroup<S> {
      */
     public boolean isConnected() {
         return isConnected;
+    }
+    //helper method to check if input IndexPair set contains input IndexPair value
+    private static boolean currentHasNext(Set<IndexPair> set, IndexPair value) {
+        for(IndexPair pair: set) {
+            if(pair.equals(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

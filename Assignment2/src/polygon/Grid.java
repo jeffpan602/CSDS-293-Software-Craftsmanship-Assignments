@@ -47,7 +47,6 @@ public final class Grid implements Iterable<IndexPair> {
                 if((next.xIndex() >= rightBorder) || (next.yIndex() >= topBorder)) {
                     throw new NoSuchElementException("IndexPair out of range");
                 }
-
                 return next;
             }
         };

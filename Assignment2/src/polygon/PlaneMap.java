@@ -83,10 +83,8 @@ public class PlaneMap<S> {
         Collection<S> xCoordinates = new HashSet<>();
         Collection<S> yCoordinates = new HashSet<>();
         for(Rectangle<S> rectangle: rectangles) {
-            xCoordinates.add(rectangle.left());
-            xCoordinates.add(rectangle.right());
-            yCoordinates.add(rectangle.bottom());
-            yCoordinates.add(rectangle.top());
+            xCoordinates.addAll(rectangle.getBorders(Direction.HORIZONTAL_BOUNDS).values());
+            yCoordinates.addAll(rectangle.getBorders(Direction.VERTICAL_BOUNDS).values());
         }
         return new PlaneMap<>(AxisMap.from(xCoordinates), AxisMap.from(yCoordinates));
     }
