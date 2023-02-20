@@ -62,7 +62,9 @@ final class RectangleGroup<S> {
             RectangleGroup.incrementValues(matrixGrid, rectangleGrid);
         }
         boolean isOverlapping = RectangleGroup.isOverlapping(matrixGrid);
-        boolean isConnected = RectangleGroup.isConnected((Rectangle<S>) rectangles.toArray()[0], planeMap, matrixGrid);
+
+
+        boolean isConnected = RectangleGroup.isConnected(rectangles.stream().findFirst().orElseThrow(() -> new NoSuchElementException("Rectangle set is empty")), planeMap, matrixGrid);
 
         return new RectangleGroup<>(rectangles, planeMap, matrixGrid, isOverlapping, isConnected);
     }
@@ -133,19 +135,21 @@ final class RectangleGroup<S> {
      * Algorithm to find the rectangles reachable from a given start IndexPair point
      * @return a set of IndexPairs from RectangleGroup that are connected
      */
-    static Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
-    //make new variables to not change arguments
-        current.add(start);
+    private static Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
+
+        Set<IndexPair> connectedPairs = current;
+
+        connectedPairs.add(start);
         for(Direction direction: Direction.values()) {
             IndexPair next = start.increment(direction);
-            if(grid.containsKey(next)  && grid.get(next) >= 1 && !current.contains(next)) {
-                current = component(next, current, grid);
+            if(grid.containsKey(next)  && grid.get(next) >= 1 && !connectedPairs.contains(next)) {
+                connectedPairs = component(next, connectedPairs, grid);
             }
         }
-        return current;
+        return connectedPairs;
     }
     //helper method to implement COMPONENT to determine if all rectangles are connected
-    private static <S> boolean isConnected(Rectangle<S> rectangle, PlaneMap<S> planeMap, NavigableMap<IndexPair, Long> grid) {
+     private static <S> boolean isConnected(Rectangle<S> rectangle, PlaneMap<S> planeMap, NavigableMap<IndexPair, Long> grid) {
 
         int left = planeMap.indexOf(rectangle.getBorder(Direction.LEFT),Direction.LEFT.isHorizontal());
         int bottom = planeMap.indexOf(rectangle.getBorder(Direction.BOTTOM),Direction.BOTTOM.isHorizontal());

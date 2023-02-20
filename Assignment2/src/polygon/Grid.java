@@ -1,6 +1,7 @@
 package polygon;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public final class Grid implements Iterable<IndexPair> {
 
@@ -39,9 +40,14 @@ public final class Grid implements Iterable<IndexPair> {
                 if(coordinate.yIndex()+1 != topBorder) {
                     coordinate  = coordinate.increment(Direction.TOP);
                 }
-                else {
+                else{
                     coordinate = new IndexPair(coordinate.xIndex()+1, getRectangle().bottom());
                 }
+
+                if((next.xIndex() >= rightBorder) || (next.yIndex() >= topBorder)) {
+                    throw new NoSuchElementException("IndexPair out of range");
+                }
+
                 return next;
             }
         };

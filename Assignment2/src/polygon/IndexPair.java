@@ -68,6 +68,21 @@ public class /*record*/ IndexPair /*(Integer xIndex, Integer yIndex)*/ implement
     public String toString() {
         return "("+ this.xIndex() +"," + this.yIndex() + ")";
     }
+
+    /**
+     * equals() method for IndexPair comparing x and y coordinate values
+     * @param o Object to compare to this IndexPair
+     * @return boolean indicating with IndexPair fields are logically equivalent
+     */
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof IndexPair) {
+            return this.compareTo((IndexPair) o) == 0;
+        }
+        else {
+            return false;
+        }
+    }
 }
        
         
