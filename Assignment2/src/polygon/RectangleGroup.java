@@ -53,6 +53,10 @@ final class RectangleGroup<S> {
             //make Grid based off a copy of rectangle
             Rectangle<S> rectangleCopy = Rectangle.copyOf(rectangle);
 
+//            for(Direction direction: Direction.values()) {
+//
+//            }
+            //make enummap with direction and values and put into the constructor
             int left = planeMap.indexOf(rectangleCopy.getBorder(Direction.LEFT),Direction.LEFT.isHorizontal());
             int right = planeMap.indexOf(rectangleCopy.getBorder(Direction.RIGHT), Direction.RIGHT.isHorizontal());
             int bottom = planeMap.indexOf(rectangleCopy.getBorder(Direction.BOTTOM),Direction.BOTTOM.isHorizontal());
@@ -134,8 +138,8 @@ final class RectangleGroup<S> {
      * Algorithm to find the rectangles reachable from a given start IndexPair point
      * @return a set of IndexPairs from RectangleGroup that are connected
      */
-     static Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
-
+     private static Set<IndexPair> component(IndexPair start, Set<IndexPair> current, NavigableMap<IndexPair, Long> grid) {
+        //add asserts 
         Set<IndexPair> connectedPairs = current;
 
         connectedPairs.add(start);
