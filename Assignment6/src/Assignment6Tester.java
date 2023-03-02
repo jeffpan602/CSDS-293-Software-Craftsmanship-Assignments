@@ -18,4 +18,11 @@ public class Assignment6Tester {
             i++;
         }
     }
+    public static void main(String[] args) {
+        List<Integer> list1 = new LinkedList<>(Arrays.asList(2, 1, 3, 5, 4, 7, 6));
+        List<Integer> sortedList1 = Assignment6.almostSortedListSort(list1, 1);
+
+        System.out.println(list1);
+        System.out.println(sortedList1);
+    }
 }
