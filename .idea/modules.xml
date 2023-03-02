@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Assignment2/Assignment2.iml" filepath="$PROJECT_DIR$/Assignment2/Assignment2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Assignments2-5/Assignments2-5.iml" filepath="$PROJECT_DIR$/Assignments2-5/Assignments2-5.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/CSDS-338-Assignments.iml" filepath="$PROJECT_DIR$/.idea/CSDS-338-Assignments.iml" />
     </modules>
   </component>
