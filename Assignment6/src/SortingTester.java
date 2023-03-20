@@ -33,13 +33,5 @@ public class SortingTester {
 
         System.out.println("List 1: " + list1);
         System.out.println("Sorted List 1: " + sortedList1);
-
-        System.out.println();
-
-        List<Integer> list2 = new LinkedList<>(Arrays.asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1));
-        List<Integer> sortedList2 = Sorting.almostSortedListSort(list2, 9);
-
-        System.out.println("List 2: " + list2);
-        System.out.println("Sorted List 2: " + sortedList2);
     }
 }

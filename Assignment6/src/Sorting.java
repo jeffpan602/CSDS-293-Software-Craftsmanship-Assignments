@@ -15,14 +15,14 @@ public class Sorting {
      * @param <E> generic type for values in the list
      */
     public static <E extends Comparable<? super E>>  List<E> almostSortedListSort(List<E> list, int k) {
-        //error checking
-        Objects.requireNonNull(list);
-        Sorting.verifyPreconditions(list, k);
+        //preconditions checking
+        Sorting.verifyListNonNull(list);
+        Sorting.verifyDistortionFactor(k);
 
         //let pq be a new priority queue
         PriorityQueue<E> queue = new PriorityQueue<>();
 
-        //insert first k elements into the queue
+        //insert first k+1 elements into the queue
         queue.addAll(list.subList(0,k+1));
 
         //let sortedList be a new list
@@ -42,18 +42,21 @@ public class Sorting {
         //return output list as sorted list
         return output;
     }
-    //helper method to check preconditions
-    private static <E extends Comparable<? super E>> void verifyPreconditions(List<E> list, int k) {
+    //helper method to check preconditions for input list
+    private static <E extends Comparable<? super E>> void verifyListNonNull(List<E> list) {
         if(Objects.isNull(list)) {
             throw new IllegalArgumentException("Input list must be non-null");
-        }
-        if(k < 0 || 100 < k)  {
-            throw new IllegalArgumentException("Distortion factor k must be at most 100");
         }
         for(E element: list) {
             if(element == null) {
                 throw new IllegalArgumentException("All elements in the list must be non-null");
             }
+        }
+    }
+    //helper method to check preconditions for distortion factor
+    private static <E extends Comparable<? super E>> void verifyDistortionFactor(int k) {
+        if(k < 0 || 100 < k)  {
+            throw new IllegalArgumentException("Distortion factor k must be at most 100");
         }
     }
 }
