@@ -87,7 +87,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
                 <assertions><enable/></assertions>
                 <formatter type="xml"/>
                 <batchtest fork="yes" filtertrace="off" todir="${junit.dir}">
-                    <fileset dir="${build.dir}" includes="**/*Tester.class"/>
+                    <fileset dir="${build.dir}" includes="**/*Test.class"/>
                 </batchtest>
                 <classpath refid="hamcrest.classpath"/>
                 <classpath path="${build.dir}"/>

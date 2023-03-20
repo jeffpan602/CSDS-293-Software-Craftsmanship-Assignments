@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 import org.junit.Before;
 
-public class SortingTester {
+public class SortingTest {
 
     //almostSortedListSort tests in accordance to the Test Design Document
     @Test
@@ -80,12 +80,5 @@ public class SortingTester {
     public void testVerifyDistortionFactor() {
         Sorting.VerifyTesting.verifyDistortionFactor(-1);
         Sorting.VerifyTesting.verifyDistortionFactor(101);
-    }
-    public static void main(String[] args) {
-        List<Integer> list3 = new LinkedList<>(Arrays.asList(3, 10, 7, 22, 1));
-        List<Integer> sortedList3 = Sorting.almostSortedListSort(list3, 4);
-        //list3 = list3.stream().sorted().collect(Collectors.toList());
-        System.out.println(list3);
-        System.out.println(sortedList3);
     }
 }
