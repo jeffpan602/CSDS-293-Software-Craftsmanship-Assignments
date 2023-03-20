@@ -23,7 +23,9 @@ public class Sorting {
         PriorityQueue<E> queue = new PriorityQueue<>();
 
         //insert first k+1 elements into the queue
-        queue.addAll(list.subList(0,k+1));
+        if(!list.isEmpty()) {
+            queue.addAll(list.subList(0,k+1));
+        }
 
         //let sortedList be a new list
         List<E> output = new LinkedList<>();
@@ -57,6 +59,15 @@ public class Sorting {
     private static <E extends Comparable<? super E>> void verifyDistortionFactor(int k) {
         if(k < 0 || 100 < k)  {
             throw new IllegalArgumentException("Distortion factor k must be at most 100");
+        }
+    }
+    //inner class for precondition private method testing
+    static class VerifyTesting {
+        public static <E extends Comparable<? super E>> void verifyListNonNull(List<E> list) {
+            Sorting.verifyListNonNull(list);
+        }
+        public static <E extends Comparable<? super E>> void verifyDistortionFactor(int k) {
+            Sorting.verifyDistortionFactor(k);
         }
     }
 }
