@@ -55,6 +55,19 @@ public class SortingTester {
         emptyList = emptyList.stream().sorted().collect(Collectors.toList());
         assertEquals(emptyList, sortedEmptyList);
     }
+    //testing for exception through method (Bad Data Tests)
+    @Test(expected = IllegalArgumentException.class)
+    public void testAlmostSortedListSortListExceptions() {
+        List<Integer> list = new LinkedList<>(Arrays.asList(10, 9, null));
+        list = Sorting.almostSortedListSort(list, 1);
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testAlmostSortedListSortDistortionFactorExceptions() {
+        List<Integer> list = new LinkedList<>(Arrays.asList(10, 9));
+        list = Sorting.almostSortedListSort(list, -1);
+
+        list = Sorting.almostSortedListSort(list, 101);
+    }
     //verifyListNonNull tests throw exceptions as expected when preconditions fail
     @Test(expected = IllegalArgumentException.class)
     public void testVerifyListNonNull() {
