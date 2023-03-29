@@ -85,7 +85,7 @@ public class SecurityLogAnalyzer {
     // Combine host print names and put a comma separator after each of them:
     String combinedList = blacklistLoader.getBlacklist().stream()
         .map(ClientHost::name)
-        .reduce("", (newItem, accumulated) -> accumulated + newItem + BLACKLIST_HOST_SEPARATOR);
+        .reduce("", (newItem, accumulated) -> accumulated + BLACKLIST_HOST_SEPARATOR + newItem);
     
     /* 
       Search for print names (regions bounded by commas) that
@@ -96,11 +96,11 @@ public class SecurityLogAnalyzer {
     int lastSeparatorPosition = combinedList.length() - BLACKLIST_HOST_SEPARATOR.length();
     int lineStart = 0;
     int lineEnd = 0;
-    while (lineEnd >= lastSeparatorPosition) {
+    while (lineEnd < lastSeparatorPosition) {
       int nextSeparator = combinedList.indexOf(BLACKLIST_HOST_SEPARATOR, lineStart);
       int maxEndInclusive = lineStart + BLACKLIST_MAX_LINE_CHARS - BLACKLIST_HOST_SEPARATOR.length();
       int separatorBeforeLimit = combinedList.lastIndexOf(BLACKLIST_HOST_SEPARATOR, maxEndInclusive);
-      lineEnd = Math.min(nextSeparator, separatorBeforeLimit);
+      lineEnd = Math.max(nextSeparator, separatorBeforeLimit);
       separateLines.add(combinedList.substring(lineStart, lineEnd));
       lineStart = lineEnd + BLACKLIST_HOST_SEPARATOR.length();
     }

@@ -40,7 +40,7 @@ class BlacklistLoader {
   BlacklistLoader(int threshold){
     if (threshold < 0) {
       logger.log(Level.WARNING, "Infraction Threshold cannot be negative, setting to zero");
-      threshold = 0;
+      this.infractionThreshold = 0;
     }
   }
   
@@ -106,12 +106,12 @@ class BlacklistLoader {
       String[] spaceSplitLine = trimmedLine.split("\\s+");
       try {
       // Handle if this line has a host name:
-      if (spaceSplitLine.length == 3) {
-        String arg0 = spaceSplitLine[0];
+      if (spaceSplitLine.length >= 3) {
+        String ipAddress = spaceSplitLine[0];
         // Removes parenthesis and colons
         String arg1 = spaceSplitLine[1].replaceAll("[():]", "");
         int arg2 = Integer.parseInt(spaceSplitLine[2]);
-        hostDataFromLine = new ClientHost(Optional.of(arg0), arg1, arg2);
+        hostDataFromLine = new ClientHost(Optional.of(arg1), ipAddress, arg2);
       }
       // Handle if this line does not have a host name:
       else if (spaceSplitLine.length == 2) {
@@ -125,6 +125,9 @@ class BlacklistLoader {
      }
     // Caused when the infraction count is not a number
     catch (NumberFormatException exception) {
+        if(spaceSplitLine.length >= 2) {
+          throw new IllegalArgumentException("Line skipped: not in the correct format (unexpected number of space-split arguments)");
+        }
       throw new IllegalArgumentException("Line skipped: infraction count not in the right format");
     }
       String ipAddress = hostDataFromLine.getIpAddress();
