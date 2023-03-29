@@ -13,8 +13,9 @@ public class ClientHost {
   
   
   ClientHost(Optional<String> hostName, String ipAddress, int infractionsCount) throws IllegalArgumentException {
-    if (infractionsCount <= 0)
-      throw new IllegalArgumentException("Line skipped: infractions count must be positive");
+//    if (infractionsCount <= 0)
+//      throw new IllegalArgumentException("Line skipped: infractions count must be positive");
+    checkPreconditions(hostName, ipAddress, infractionsCount);
     
     this.ipAddress = ipAddress;
     this.hostName = hostName;
@@ -30,7 +31,7 @@ public class ClientHost {
   }
   
   ClientHost combineHostData(ClientHost other) {
-    if (other == null || ipAddress != other.ipAddress) {
+    if (other == null || !ipAddress.equals(other.ipAddress)) {
       throw new IllegalArgumentException("Invalid other Host; Other Host should match this Host's IP Address");
     }
     
@@ -43,5 +44,14 @@ public class ClientHost {
   
   String name() {
     return hostName.isPresent() ? hostName.get() : ipAddress;
+  }
+
+  void checkPreconditions(Optional<String> hostName, String ipAddress, int infractionsCount) throws IllegalArgumentException {
+    if (infractionsCount <= 0)
+      throw new IllegalArgumentException("Line skipped: infractions count must be positive");
+    if(ipAddress == null)
+      throw new IllegalArgumentException("IP Address must be non-null");
+    if(hostName == null)
+      throw new IllegalArgumentException("Host name must be non-null");
   }
 }
