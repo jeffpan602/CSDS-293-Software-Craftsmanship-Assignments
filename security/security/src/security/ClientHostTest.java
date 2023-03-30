@@ -36,5 +36,21 @@ public class ClientHostTest {
     ClientHost combined = clientHostA.combineHostData(clientHostB);
     assertEquals(combined.getInfractionsCount(), 2);
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testCombineWithException() {
+    String ipA = "0.0.0.0";
+    String ipB = "1.1.1.1";
+    ClientHost clientHostA = new ClientHost(Optional.empty(), ipA, 1);
+    ClientHost clientHostB = new ClientHost(Optional.empty(), ipB, 1);
+    ClientHost combined = clientHostA.combineHostData(clientHostB);
+  }
+
+  @Test
+  public void testGetIPAddress() {
+    String ip = "0.0.0.0";
+    ClientHost clientHost = new ClientHost(Optional.empty(), ip, 1);
+    assertEquals(ip, clientHost.getIpAddress());
+  }
   
 }
