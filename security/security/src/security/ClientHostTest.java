@@ -43,7 +43,7 @@ public class ClientHostTest {
     String ipB = "1.1.1.1";
     ClientHost clientHostA = new ClientHost(Optional.empty(), ipA, 1);
     ClientHost clientHostB = new ClientHost(Optional.empty(), ipB, 1);
-    ClientHost combined = clientHostA.combineHostData(clientHostB);cd
+    ClientHost combined = clientHostA.combineHostData(clientHostB);
   }
 
   @Test
