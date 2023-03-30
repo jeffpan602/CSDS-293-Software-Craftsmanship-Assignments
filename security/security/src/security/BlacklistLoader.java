@@ -162,8 +162,6 @@ class BlacklistLoader {
       logger.log(Level.SEVERE, exception.getMessage());
     }
   }
-  
-  
   /**
    * Internal testing class for testing private methods.
    */
