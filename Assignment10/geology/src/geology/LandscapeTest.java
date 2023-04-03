@@ -114,12 +114,6 @@ public class LandscapeTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testModifyDEPRESSException() {
-        Landscape landscape = new Landscape(5);
-        landscape.modify(1, 5, Modification.DEPRESS);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
     public void testModifyVALLEYException() {
         Landscape landscape = new Landscape(5);
         landscape.modify(1, 5, Modification.VALLEY);

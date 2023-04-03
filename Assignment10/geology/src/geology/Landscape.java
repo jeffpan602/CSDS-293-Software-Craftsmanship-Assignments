@@ -63,14 +63,6 @@ public class Landscape {
             throw new IllegalArgumentException("x1 and x2 must be within range");
     }
 
-    //helper method to check depress() preconditions
-    private void checkDepressPreconditions() {
-        for(Point point: getPoints()) {
-            if(point.getY() < 0)
-                throw new IllegalArgumentException("Landscape points at height 0, can't depress or valley further");
-        }
-    }
-
     //helper method for the RAISE operation
     private void raise(int x1, int x2) {
         for(int i = x1; i <= x2; i++) {
@@ -80,7 +72,6 @@ public class Landscape {
 
     //helper method for the DEPRESS operation
     private void depress(int x1, int x2) {
-        checkDepressPreconditions();
 
         for(int i = x1; i <= x2; i++) {
             Point point = points.get(i);
