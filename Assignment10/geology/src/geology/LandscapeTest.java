@@ -1,6 +1,11 @@
 package geology;
 
 import org.junit.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class LandscapeTest {
@@ -117,5 +122,64 @@ public class LandscapeTest {
     public void testModifyVALLEYException() {
         Landscape landscape = new Landscape(5);
         landscape.modify(1, 5, Modification.VALLEY);
+    }
+
+    @Test
+    public void testVerifyModifications() {
+        Landscape landscape1 = new Landscape(7);
+        ModificationRecord m1 = new ModificationRecord(Modification.RAISE, 1, 7);
+        ModificationRecord m2 = new ModificationRecord(Modification.DEPRESS, 1, 4);
+        ModificationRecord m3 = new ModificationRecord(Modification.DEPRESS, 5, 7);
+        List<ModificationRecord> modifications = new ArrayList<>(Arrays.asList(m1, m2, m3));
+        List<Integer> heights = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
+        assertTrue(Landscape.verifyModifications(8, modifications, heights));
+
+        Landscape landscape2 = new Landscape(10);
+        ModificationRecord m4 = new ModificationRecord(Modification.RAISE, 1, 7);
+        ModificationRecord m5 = new ModificationRecord(Modification.HILL, 3, 5);
+        List<ModificationRecord> modifications2 = new ArrayList<>(Arrays.asList(m4, m5));
+        List<Integer> heights2 = new ArrayList<>(Arrays.asList(0, 1, 1, 2, 3, 2, 1, 1, 0, 0, 0));
+        assertTrue(Landscape.verifyModifications(11, modifications2, heights2));
+    }
+
+    @Test
+    public void testVerifyModificationsFalse() {
+        Landscape landscape1 = new Landscape(7);
+        ModificationRecord m1 = new ModificationRecord(Modification.RAISE, 1, 7);
+        ModificationRecord m2 = new ModificationRecord(Modification.DEPRESS, 1, 4);
+        ModificationRecord m3 = new ModificationRecord(Modification.DEPRESS, 5, 7);
+        List<ModificationRecord> modifications = new ArrayList<>(Arrays.asList(m1, m2, m3));
+        List<Integer> heights = new ArrayList<>(Arrays.asList(1, 0, 0, 0, 0, 0, 0, 0));
+        assertFalse(Landscape.verifyModifications(8, modifications, heights));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testVerifyModificationsDiffNumPointsAndHeights() {
+        ModificationRecord m1 = new ModificationRecord(Modification.RAISE, 1, 7);
+        ModificationRecord m2 = new ModificationRecord(Modification.DEPRESS, 1, 4);
+        ModificationRecord m3 = new ModificationRecord(Modification.DEPRESS, 5, 7);
+        List<ModificationRecord> modifications = new ArrayList<>(Arrays.asList(m1, m2, m3));
+        List<Integer> heights = new ArrayList<>(Arrays.asList(1, 0, 0, 0, 0, 0, 0, 0));
+        assertFalse(Landscape.verifyModifications(5, modifications, heights));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testVerifyModificationsNullException() {
+        ModificationRecord m1 = new ModificationRecord(Modification.RAISE, 1, 7);
+        ModificationRecord m2 = new ModificationRecord(Modification.DEPRESS, 1, 4);
+        ModificationRecord m3 = new ModificationRecord(Modification.DEPRESS, 5, 7);
+        List<ModificationRecord> modifications = new ArrayList<>(Arrays.asList(m1, m2, m3));
+        //List<Integer> heights = new ArrayList<>(Arrays.asList(1, 0, 0, 0, 0, 0, 0, 0));
+        assertFalse(Landscape.verifyModifications(8, modifications, null));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testVerifyModificationsNullElementsException() {
+        ModificationRecord m1 = new ModificationRecord(Modification.RAISE, 1, 7);
+        ModificationRecord m2 = new ModificationRecord(Modification.DEPRESS, 1, 4);
+        ModificationRecord m3 = new ModificationRecord(Modification.DEPRESS, 5, 7);
+        List<ModificationRecord> modifications = new ArrayList<>(Arrays.asList(m1, m2, m3));
+        List<Integer> heights = new ArrayList<>(Arrays.asList(1, 0, 0, null, 0, 0, 0, 0));
+        assertFalse(Landscape.verifyModifications(8, modifications, heights));
     }
 }

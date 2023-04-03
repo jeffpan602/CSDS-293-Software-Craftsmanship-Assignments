@@ -54,10 +54,8 @@ public class Landscape {
      * @param heights list of final heights at each ith point in this Landscape
      * @return boolean value indicating if the modifications produce the height list
      */
-    public boolean verifyModifications(int pointsNum, List<ModificationRecord> modifications, List<Integer> heights) {
-        verifyNonNull(modifications, heights);
-        verifyElementsNonNull(modifications);
-        verifyElementsNonNull(heights);
+    public static boolean verifyModifications(int pointsNum, List<ModificationRecord> modifications, List<Integer> heights) {
+        checkVerifyModificationPreconditions(pointsNum, modifications,heights);
 
         Landscape landscape = new Landscape(pointsNum-1);
 
@@ -74,13 +72,16 @@ public class Landscape {
     }
 
     //helper method to check verifyModification preconditions()
-    private void checkVerifyModificationPreconditions(int pointsNum, List<ModificationRecord> modifications, List<Integer> heights) {
+    private static void checkVerifyModificationPreconditions(int pointsNum, List<ModificationRecord> modifications, List<Integer> heights) {
+        verifyNonNull(modifications, heights);
+        verifyElementsNonNull(modifications);
+        verifyElementsNonNull(heights);
         if(pointsNum != heights.size())
             throw new IllegalArgumentException("The number of points must be the same as the list of final heights");
     }
 
     //helper method to verify if arguments are non-null
-    private void verifyNonNull(Object...args) {
+    private static void verifyNonNull(Object...args) {
         for(Object arg: args) {
             if(arg == null)
                 throw new IllegalArgumentException("Arguments must be non-null");
@@ -88,7 +89,7 @@ public class Landscape {
     }
 
     //helper method to verify if elements in a List are non-null
-    private <E> void verifyElementsNonNull(List<E> list) {
+    private static <E> void verifyElementsNonNull(List<E> list) {
         for(E element: list) {
             if(element == null)
                 throw new IllegalArgumentException("Elements in the arguments must be non-null");
