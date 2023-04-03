@@ -23,7 +23,7 @@ public class PointTest {
     }
     @Test
     public void testDecreaseY() {
-        Point point = new Point(10, 0);
+        Point point = new Point(0, 10);
         point.decreaseY(8);
         assertEquals(2, point.getY());
     }
