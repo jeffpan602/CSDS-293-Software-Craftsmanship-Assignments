@@ -144,7 +144,6 @@ public class Landscape {
 
     //helper method for the VALLEY operation
     private void valley(int x1, int x2) {
-        checkValleyPreconditions(x1, x2);
 
         int midpoint = (x1 + x2) / 2;
         if((x2 - x1) % 2 == 0) {
@@ -199,13 +198,6 @@ public class Landscape {
             getPoints().get(i).decreaseY(heightDecrease);
             heightDecrease++;
         }
-    }
-
-    //helper method to check valley preconditions()
-    private void checkValleyPreconditions(int x1, int x2) {
-        int maxHeightDecrease = (x2 - x1) / 2;
-        if(getPoints().get(maxHeightDecrease).getY() - maxHeightDecrease < 0)
-            throw new IllegalArgumentException("Landscape is not high enough to create a valley");
     }
 
 }
