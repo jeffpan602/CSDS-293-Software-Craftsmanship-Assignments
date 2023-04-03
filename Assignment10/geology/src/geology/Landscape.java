@@ -47,6 +47,19 @@ public class Landscape {
 
     }
 
+    /**
+     * Verification algorithm to determine if the landscape matches the application of a sequence of modifications
+     * @param pointsNum number of points in this Landscape
+     * @param modifications sequence of modifications (Enum type, int x1, int x2)
+     * @param heights list of final heights at each ith point in this Landscape
+     * @return boolean value indicating if the modifications produce the height list
+     */
+    public boolean verifyModifications(int pointsNum, List<ModificationRecord> modifications, List<Integer> heights) {
+        
+
+        return true;
+    }
+
     //helper method to check constructor parameters
     private void verifyArguments(int range) {
         if(range <= 0)
@@ -157,4 +170,5 @@ public class Landscape {
         if(getPoints().get(maxHeightDecrease).getY() - maxHeightDecrease < 0)
             throw new IllegalArgumentException("Landscape is not high enough to create a valley");
     }
+
 }
