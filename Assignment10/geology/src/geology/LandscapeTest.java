@@ -67,6 +67,29 @@ public class LandscapeTest {
         }
     }
 
+    @Test
+    public void testModifyVALLEY() {
+        Landscape landscape1 = new Landscape(7);
+        for(int i = 0; i < 3; i++) {
+            landscape1.modify(0, 7, Modification.RAISE);
+        }
+        landscape1.modify(1,6,Modification.VALLEY);
+        int[] heights1 = {3, 2, 1, 0, 0, 1, 2, 3};
+        for(int i = 0; i <= landscape1.getRange(); i++) {
+            assertEquals(heights1[i], landscape1.getPoints().get(i).getY());
+        }
+
+        Landscape landscape2 = new Landscape(6);
+        for(int i = 0; i < 3; i++) {
+            landscape2.modify(0, 6, Modification.RAISE);
+        }
+        landscape2.modify(1,5,Modification.VALLEY);
+        int[] heights2 = {3, 2, 1, 0, 1, 2, 3};
+        for(int i = 0; i <= landscape2.getRange(); i++) {
+            assertEquals(heights2[i], landscape2.getPoints().get(i).getY());
+        }
+    }
+
     @Test (expected = IllegalArgumentException.class)
     public void testModifyExceptionX1() {
         Landscape landscape = new Landscape(5);
@@ -84,14 +107,5 @@ public class LandscapeTest {
         Landscape landscape = new Landscape(5);
         landscape.modify(-10,-5, Modification.RAISE);
     }
-
-    public static void main(String[] args) {
-        Landscape landscape1 = new Landscape(7);
-        landscape1.modify(1,6,Modification.HILL);
-        int[] heights1 = {0, 1, 2, 3, 3, 2, 1, 0};
-        int heights1Index = 0;
-        for(int i = 0; i <= landscape1.getRange(); i++) {
-            System.out.println(landscape1.getPoints().get(i).getY());
-        }
-    }
+    
 }

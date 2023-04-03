@@ -59,6 +59,8 @@ public class Landscape {
             throw new IllegalArgumentException("x1 must be less than or equal to x2");
         if(x1 < 0)
             throw new IllegalArgumentException("x1 and x2 must be greater than 0");
+        if(x2 > getRange())
+            throw new IllegalArgumentException("x1 and x2 must be within range");
     }
 
     //helper method to check depress() preconditions
@@ -143,8 +145,9 @@ public class Landscape {
             getPoints().get(i).decreaseY(heightDecrease);
             heightDecrease++;
         }
+        heightDecrease--;
         if(isOdd) {
-            getPoints().get(x2+1).increaseY(heightDecrease);
+            getPoints().get(x2+1).decreaseY(heightDecrease);
         }
     }
 
