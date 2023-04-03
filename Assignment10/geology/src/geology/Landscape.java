@@ -39,15 +39,12 @@ public class Landscape {
         //check preconditions
         checkModifyPreconditions(x1,x2);
         switch (operation) {
-            case RAISE:
-                raise(x1,x2);
-            case DEPRESS:
-                depress(x1,x2);
-            case HILL:
-                hill(x1, x2);
-            case VALLEY:
-                valley(x1, x2);
+            case RAISE -> raise(x1, x2);
+            case DEPRESS -> depress(x1, x2);
+            case HILL -> hill(x1, x2);
+            default -> valley(x1, x2);
         }
+
     }
 
     //helper method to check constructor parameters
@@ -60,6 +57,8 @@ public class Landscape {
     private void checkModifyPreconditions(int x1, int x2) {
         if(x1 > x2)
             throw new IllegalArgumentException("x1 must be less than or equal to x2");
+        if(x1 < 0)
+            throw new IllegalArgumentException("x1 and x2 must be greater than 0");
     }
 
     //helper method to check depress() preconditions
@@ -73,7 +72,7 @@ public class Landscape {
     //helper method for the RAISE operation
     private void raise(int x1, int x2) {
         for(int i = x1; i <= x2; i++) {
-            getPoints().get(x1).increaseY(1);
+            getPoints().get(i).increaseY(1);
         }
     }
 
@@ -122,6 +121,7 @@ public class Landscape {
             getPoints().get(i).increaseY(heightIncrease);
             heightIncrease++;
         }
+        heightIncrease--;
         if(isOdd) {
             getPoints().get(x2+1).increaseY(heightIncrease);
         }
