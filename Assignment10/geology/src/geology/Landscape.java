@@ -45,7 +45,7 @@ public class Landscape {
                 depress(x1,x2);
             case HILL:
                 hill(x1, x2);
-            default:
+            case VALLEY:
                 valley(x1, x2);
         }
     }
@@ -73,8 +73,7 @@ public class Landscape {
     //helper method for the RAISE operation
     private void raise(int x1, int x2) {
         for(int i = x1; i <= x2; i++) {
-            Point point = points.get(i);
-            point.increaseY(1);
+            getPoints().get(x1).increaseY(1);
         }
     }
 

@@ -3,6 +3,7 @@ package geology;
 import org.junit.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -33,8 +34,19 @@ public class LandscapeTest {
 
     @Test
     public void testModifyRAISE() {
-        Landscape landscape = new Landscape(5);
-        landscape.modify(1,5, Modification.RAISE);
-        ArrayList<Integer> heights = new ArrayList<>();
+        Landscape landscape1 = new Landscape(5);
+        landscape1.modify(1,5, Modification.RAISE);
+        int[] heights1 = {1, 2, 3, 2, 1};
+        int heights1Index = 0;
+        for(Point point: landscape1.getPoints()) {
+            assertEquals(heights1[heights1Index], point.getY());
+        }
+    }
+    public static void main(String[] args) {
+        Landscape landscape1 = new Landscape(5);
+        landscape1.modify(1,5, Modification.RAISE);
+        for(Point point: landscape1.getPoints()) {
+            System.out.println(point.getY());
+        }
     }
 }
