@@ -62,8 +62,8 @@ public class Landscape {
             throw new IllegalArgumentException("x1 must be less than or equal to x2");
     }
 
-    //helper method to check depress() and valley preconditions
-    private void checkDepressConditions() {
+    //helper method to check depress() preconditions
+    private void checkDepressPreconditions() {
         for(Point point: getPoints()) {
             if(point.getY() < 0)
                 throw new IllegalArgumentException("Landscape points at height 0, can't depress or valley further");
@@ -80,7 +80,7 @@ public class Landscape {
 
     //helper method for the DEPRESS operation
     private void depress(int x1, int x2) {
-        checkDepressConditions();
+        checkDepressPreconditions();
 
         for(int i = x1; i <= x2; i++) {
             Point point = points.get(i);
@@ -103,7 +103,17 @@ public class Landscape {
 
     //helper method for the VALLEY operation
     private void valley(int x1, int x2) {
+        checkValleyPreconditions(x1, x2);
 
+        int midpoint = (x1 + x2) / 2;
+        if((x2 - x1) % 2 == 0) {
+            depressDownwardsSlope(x1, midpoint, false);
+            depressUpwardsSlope(midpoint+1, x2);
+        }
+        else {
+            depressDownwardsSlope(x1, midpoint, true);
+            depressUpwardsSlope(midpoint + 2, x2);
+        }
     }
 
     //helper method for the HILL operation to make the upwards slope of the hill
@@ -125,5 +135,33 @@ public class Landscape {
             getPoints().get(i).increaseY(heightIncrease);
             heightIncrease++;
         }
+    }
+
+    //helper method for the VALLEY operation to make the downwards slope of the valley
+    private void depressDownwardsSlope(int x1, int x2, boolean isOdd) {
+        int heightDecrease = 1;
+        for(int i = x1; i <= x2; i++) {
+            getPoints().get(i).decreaseY(heightDecrease);
+            heightDecrease++;
+        }
+        if(isOdd) {
+            getPoints().get(x2+1).increaseY(heightDecrease);
+        }
+    }
+
+    //helper method for the VALLEY operation to make the upwards slope of the valley
+    private void depressUpwardsSlope(int x1, int x2) {
+        int heightDecrease = 1;
+        for(int i = x2; i >= x1; i--) {
+            getPoints().get(i).decreaseY(heightDecrease);
+            heightDecrease++;
+        }
+    }
+
+    //helper method to check valley preconditions()
+    private void checkValleyPreconditions(int x1, int x2) {
+        int maxHeightDecrease = (x2 - x1) / 2;
+        if(getPoints().get(maxHeightDecrease).getY() - maxHeightDecrease < 0)
+            throw new IllegalArgumentException("Landscape is not high enough to create a valley");
     }
 }

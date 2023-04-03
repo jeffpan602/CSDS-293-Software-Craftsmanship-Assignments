@@ -3,7 +3,7 @@ package geology;
 class Point {
 
     //private fields to store the x and y value this Point has on the Landscape
-    private int x;
+    private final int x;
     private int y;
 
     /**
