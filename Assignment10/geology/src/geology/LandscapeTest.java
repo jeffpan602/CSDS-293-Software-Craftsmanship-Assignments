@@ -1,7 +1,6 @@
 package geology;
 
 import org.junit.*;
-
 import static org.junit.Assert.*;
 
 public class LandscapeTest {
@@ -91,13 +90,13 @@ public class LandscapeTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testModifyExceptionX1() {
+    public void testModifyExceptionX2Negative() {
         Landscape landscape = new Landscape(5);
         landscape.modify(1,-5, Modification.RAISE);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void testModifyExceptionX2() {
+    public void testModifyExceptionX1Negative() {
         Landscape landscape = new Landscape(5);
         landscape.modify(-1,5, Modification.RAISE);
     }
@@ -107,5 +106,22 @@ public class LandscapeTest {
         Landscape landscape = new Landscape(5);
         landscape.modify(-10,-5, Modification.RAISE);
     }
-    
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testModifyExceptionOutOfRange() {
+        Landscape landscape = new Landscape(5);
+        landscape.modify(1, 100, Modification.RAISE);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testModifyDEPRESSException() {
+        Landscape landscape = new Landscape(5);
+        landscape.modify(1, 5, Modification.DEPRESS);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void testModifyVALLEYException() {
+        Landscape landscape = new Landscape(5);
+        landscape.modify(1, 5, Modification.VALLEY);
+    }
 }
