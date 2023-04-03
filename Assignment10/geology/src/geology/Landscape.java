@@ -49,16 +49,52 @@ public class Landscape {
 
     /**
      * Verification algorithm to determine if the landscape matches the application of a sequence of modifications
-     * @param pointsNum number of points in this Landscape
+     * @param pointsNum number of points in the Landscape
      * @param modifications sequence of modifications (Enum type, int x1, int x2)
      * @param heights list of final heights at each ith point in this Landscape
      * @return boolean value indicating if the modifications produce the height list
      */
     public boolean verifyModifications(int pointsNum, List<ModificationRecord> modifications, List<Integer> heights) {
-        
+        verifyNonNull(modifications, heights);
+        verifyElementsNonNull(modifications);
+        verifyElementsNonNull(heights);
+
+        Landscape landscape = new Landscape(pointsNum-1);
+
+        for(ModificationRecord modification: modifications) {
+            landscape.modify(modification.x1(), modification.x2(), modification.operation());
+        }
+
+        for(int i = 0; i <= landscape.getRange(); i++) {
+            if(landscape.getPoints().get(i).getY() != heights.get(i))
+                return false;
+        }
 
         return true;
     }
+
+    //helper method to check verifyModification preconditions()
+    private void checkVerifyModificationPreconditions(int pointsNum, List<ModificationRecord> modifications, List<Integer> heights) {
+        if(pointsNum != heights.size())
+            throw new IllegalArgumentException("The number of points must be the same as the list of final heights");
+    }
+
+    //helper method to verify if arguments are non-null
+    private void verifyNonNull(Object...args) {
+        for(Object arg: args) {
+            if(arg == null)
+                throw new IllegalArgumentException("Arguments must be non-null");
+        }
+    }
+
+    //helper method to verify if elements in a List are non-null
+    private <E> void verifyElementsNonNull(List<E> list) {
+        for(E element: list) {
+            if(element == null)
+                throw new IllegalArgumentException("Elements in the arguments must be non-null");
+        }
+    }
+
 
     //helper method to check constructor parameters
     private void verifyArguments(int range) {
