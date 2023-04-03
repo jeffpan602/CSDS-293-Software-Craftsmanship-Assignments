@@ -7,20 +7,18 @@ public class Landscape {
 
     //private field to store the range of this Landscape (x-axis)
     private final int range;
-    //private field to store the height of this Landscape (y-axis)
-    private final int height;
     //private field to store the points in this Landscape
     private final List<Point> points = new ArrayList<>();
 
     /**
      * Constructor to build the Landscape
      * range starts from 0 and extends to the input range given
+     * Each point is given a height of 0 by default
      * @param range value of the x-axis length
-     * @param height value of the y-axis length
      */
-    public Landscape(int range, int height) {
+    public Landscape(int range) {
+        verifyArguments(range);
         this.range = range;
-        this.height = height;
         for(int i = 0; i <= range; i++) {
             points.add(new Point(i, 0));
         }
@@ -29,8 +27,7 @@ public class Landscape {
     //getter method for range field
     int getRange() { return this.range; }
 
-    //getter method for height field
-    int getHeight() { return this.height; }
+    List<Point> getPoints() { return this.points; }
 
     /**
      * Method to modify this Landscape
@@ -40,7 +37,7 @@ public class Landscape {
      */
     public void modify(int x1, int x2, Modification operation) {
         //check preconditions
-        checkPreconditions(x1,x2);
+        checkModifyPreconditions(x1,x2);
         switch (operation) {
             case RAISE:
                 raise(x1,x2);
@@ -53,35 +50,80 @@ public class Landscape {
         }
     }
 
+    //helper method to check constructor parameters
+    private void verifyArguments(int range) {
+        if(range <= 0)
+            throw new IllegalArgumentException("Landscape range must be greater than 0");
+    }
+
     //helper method to check modify() preconditions
-    private void checkPreconditions(int x1, int x2) {
+    private void checkModifyPreconditions(int x1, int x2) {
         if(x1 > x2)
             throw new IllegalArgumentException("x1 must be less than or equal to x2");
+    }
+
+    //helper method to check depress() and valley preconditions
+    private void checkDepressConditions() {
+        for(Point point: getPoints()) {
+            if(point.getY() < 0)
+                throw new IllegalArgumentException("Landscape points at height 0, can't depress or valley further");
+        }
     }
 
     //helper method for the RAISE operation
     private void raise(int x1, int x2) {
         for(int i = x1; i <= x2; i++) {
             Point point = points.get(i);
-            point.setY(point.getY()+1);
+            point.increaseY(1);
         }
     }
 
     //helper method for the DEPRESS operation
     private void depress(int x1, int x2) {
+        checkDepressConditions();
+
         for(int i = x1; i <= x2; i++) {
             Point point = points.get(i);
-            point.setY(point.getY()-1);
+            point.decreaseY(1);
         }
     }
 
     //helper method for the HILL operation
     private void hill(int x1, int x2) {
-
+        int midpoint = (x1 + x2) / 2;
+        if((x2 - x1) % 2 == 0) {
+            raiseUpwardsSlope(x1, midpoint, false);
+            raiseDownwardsSlope(midpoint+1, x2);
+        }
+        else {
+            raiseUpwardsSlope(x1, midpoint, true);
+            raiseDownwardsSlope(midpoint + 2, x2);
+        }
     }
 
     //helper method for the VALLEY operation
     private void valley(int x1, int x2) {
 
+    }
+
+    //helper method for the HILL operation to make the upwards slope of the hill
+    private void raiseUpwardsSlope(int x1, int x2, boolean isOdd) {
+        int heightIncrease = 1;
+        for(int i = x1; i <= x2; i++) {
+            getPoints().get(i).increaseY(heightIncrease);
+            heightIncrease++;
+        }
+        if(isOdd) {
+            getPoints().get(x2+1).increaseY(heightIncrease);
+        }
+    }
+
+    //helper method for the HILL operation to make the downwards slope of the hill
+    private void raiseDownwardsSlope(int x1, int x2) {
+        int heightIncrease = 1;
+        for(int i = x2; i >= x1; i--) {
+            getPoints().get(i).increaseY(heightIncrease);
+            heightIncrease++;
+        }
     }
 }

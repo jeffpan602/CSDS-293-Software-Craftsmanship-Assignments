@@ -18,6 +18,13 @@ class Point {
 
     int getX() { return this.x; }
     int getY() { return this.y; }
-    void setX(int x) { this.x = x; }
-    void setY(int y) { this.y = y; }
+
+    //increment the height by an input amount
+    void increaseY(int amount) {
+        this.y += amount;
+    }
+    //decrement the height by an input amount
+    void decreaseY(int amount) {
+        this.y -= amount;
+    }
 }
