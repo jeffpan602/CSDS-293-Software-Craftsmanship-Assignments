@@ -22,7 +22,7 @@ $ANT_HOME/lib must contain (see Ant-JUnit and JaCoCo installation guides):
 -->
 
 <!-- TODO: change the name to the name of the project given in the assignment (such as "count") -->
-<project name="Assignment7" xmlns:jacoco="antlib:org.jacoco.ant">
+<project name="PCIc Design" xmlns:jacoco="antlib:org.jacoco.ant">
     <!--   Directory with source files -->
     <property name="src.dir" value="src"/>
 
