@@ -1,6 +1,5 @@
 package application;
 
-public class Application {
-
+public abstract class Application {
 
 }
