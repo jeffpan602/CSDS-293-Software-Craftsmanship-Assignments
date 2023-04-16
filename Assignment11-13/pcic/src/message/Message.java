@@ -11,6 +11,7 @@ public abstract class Message {
     private final boolean isBroadcast;
 
     public Message(int recipientID, int portID, String payload, boolean isBroadcast) {
+        MessageException.verifyNonNull(recipientID, portID, payload, isBroadcast);
         this.recipientID = recipientID;
         this.portID = portID;
         this.payload = payload;
