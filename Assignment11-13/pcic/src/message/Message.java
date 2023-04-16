@@ -1,10 +1,12 @@
+package message;
+
 public abstract class Message {
 
-    //Message field to store and represent the unique identifier that denotes the intended recipient of the message
+    //message.Message field to store and represent the unique identifier that denotes the intended recipient of the message
     private final int recipientID;
-    //Message field to store and assign the message to a specific application on the receiving device
+    //message.Message field to store and assign the message to a specific application on the receiving device
     private final int portID;
-    //Message field to store and represent the binary string of the contents of this Message
+    //message.Message field to store and represent the binary string of the contents of this message.Message
     private final String payload;
     private final boolean isBroadcast;
 
@@ -15,7 +17,7 @@ public abstract class Message {
         this.isBroadcast = isBroadcast;
     }
 
-    //Getter methods to return the fields of this Message
+    //Getter methods to return the fields of this message.Message
     public int getRecipientID() { return this.recipientID; }
     public int getPortID() { return this.portID; }
     public String getPayload() { return this.payload; }
