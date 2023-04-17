@@ -8,7 +8,7 @@ public class SSDDriver extends Application {
         super(name);
     }
     
-    public boolean process(Message message) {
-        return true;
+    public String process(Message message) {
+        return message.getPayload();
     }
 }
