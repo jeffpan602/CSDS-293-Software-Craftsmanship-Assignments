@@ -26,10 +26,4 @@ public class MessageException extends Exception {
         }
     }
 
-    public static void verifyIdentifiers(int recipientID, int portID, Device device) {
-        if(recipientID != device.getBusID())
-            throw new IllegalArgumentException(new MessageException(Error.INVALID_DEVICE_ID));
-        if(!device.getPortMap().containsKey(portID))
-            throw new IllegalArgumentException(new MessageException(Error.INVALID_PORT_ID));
-    }
 }

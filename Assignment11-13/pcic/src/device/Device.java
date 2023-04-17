@@ -1,7 +1,6 @@
 package device;
 import application.*;
 import bus.Bus;
-import bus.BusIDGenerator;
 import message.Message;
 import message.MessageException;
 
@@ -33,13 +32,7 @@ public abstract class Device {
     public Map<Integer, Application> getPortMap() { return this.portMap; }
     public int getBusID() { return this.busID; }
 
-    public boolean recieveMessage(Message message) {
-        try {
-            MessageException.verifyIdentifiers(message.getRecipientID(), message.getPortID(), this);
-        }
-        catch(IllegalArgumentException e) {
-            return false;
-        };
+    public boolean receiveMessage(Message message) {
         if(message.isBroadcast()) {
             for(Integer portNum: getPortMap().keySet()) {
                 getPortMap().get(portNum).process(message);

@@ -24,8 +24,7 @@ public class Bus {
         catch (IllegalArgumentException e) {
             return false;
         }
-
-        this.getDevices().get(deviceIndex).recieveMessage(message);
+        this.getDevices().get(deviceIndex).receiveMessage(message);
         analyzeMessage(message);
         return true;
     }
