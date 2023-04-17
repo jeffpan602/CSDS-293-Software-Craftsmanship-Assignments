@@ -2,11 +2,11 @@ package message;
 
 public abstract class Message {
 
-    //message.Message field to store and represent the unique identifier that denotes the intended recipient of the message
+    //Message field to store and represent the unique identifier that denotes the intended recipient of the message
     private final int recipientID;
-    //message.Message field to store and assign the message to a specific application on the receiving device
+    //Message field to assign the message to a specific application on the receiving device
     private final int portID;
-    //message.Message field to store and represent the binary string of the contents of this message.Message
+    //Message field to store and represent the binary string of the contents of this message.Message
     private final String payload;
     private final boolean isBroadcast;
 
