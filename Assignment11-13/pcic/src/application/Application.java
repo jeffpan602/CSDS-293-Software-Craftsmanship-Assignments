@@ -11,5 +11,5 @@ public abstract class Application {
 
     public String getName() { return this.name; }
     //Method to perform the function of this Application based on a message
-    public abstract void process(Message message);
+    public abstract boolean process(Message message);
 }

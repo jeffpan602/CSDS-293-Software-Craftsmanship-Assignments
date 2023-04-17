@@ -33,8 +33,13 @@ public abstract class Device {
     public Map<Integer, Application> getPortMap() { return this.portMap; }
     public int getBusID() { return this.busID; }
 
-    public void recieveMessage(Message message) {
-        MessageException.verifyIdentifiers(message.getRecipientID(), message.getPortID(), this);
+    public boolean recieveMessage(Message message) {
+        try {
+            MessageException.verifyIdentifiers(message.getRecipientID(), message.getPortID(), this);
+        }
+        catch(IllegalArgumentException e) {
+            return false;
+        };
         if(message.isBroadcast()) {
             for(Integer portNum: getPortMap().keySet()) {
                 getPortMap().get(portNum).process(message);
@@ -43,6 +48,7 @@ public abstract class Device {
         else {
             getPortMap().get(message.getPortID()).process(message);
         }
+        return true;
     }
 
     public void sendMessage(Message message, Bus bus) {

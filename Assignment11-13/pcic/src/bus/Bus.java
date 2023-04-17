@@ -16,12 +16,18 @@ public class Bus {
     public int getID() { return this.id; }
     public List<Device> getDevices() { return this.devices; }
 
-    public void processMessage(Message message) {
+    public boolean processMessage(Message message) {
         int deviceIndex = DeviceException.verifyDevice(message.getRecipientID(), this);
-        DeviceException.verifyPort(message.getPortID(), this.getDevices().get(deviceIndex));
+        try {
+            DeviceException.verifyPort(message.getPortID(), this.getDevices().get(deviceIndex));
+        }
+        catch (IllegalArgumentException e) {
+            return false;
+        }
 
         this.getDevices().get(deviceIndex).recieveMessage(message);
         analyzeMessage(message);
+        return true;
     }
     public void analyzeMessage(Message message) {
 

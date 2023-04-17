@@ -8,7 +8,7 @@ public class SSDDriver extends Application {
         super(name);
     }
     
-    public void process(Message message) {
-
+    public boolean process(Message message) {
+        return true;
     }
 }
