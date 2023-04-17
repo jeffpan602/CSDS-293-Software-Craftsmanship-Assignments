@@ -4,6 +4,7 @@ import bus.Bus;
 import message.Message;
 import message.MessageException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Device {
@@ -17,6 +18,13 @@ public abstract class Device {
         this.portMap = portMap;
         this.busID = busID;
     }
+
+    public Device(int id, int busID) {
+        this.id = id;
+        this.portMap = new HashMap<Integer, Application>();
+        this.busID = busID;
+    }
+
     //getter methods for the fields of this Device
     public int getID() { return this.id; }
     public Map<Integer, Application> getPortMap() { return this.portMap; }
@@ -36,5 +44,10 @@ public abstract class Device {
 
     public void sendMessage(Message message, Bus bus) {
         bus.processMessage(message);
+    }
+
+    public void configurePort(int portNum, Application application) {
+        DeviceException.verifyPort(portNum,this);
+        getPortMap().put(portNum, application);
     }
 }
