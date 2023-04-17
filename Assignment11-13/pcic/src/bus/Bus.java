@@ -8,8 +8,8 @@ public class Bus {
     private final int id;
     private final List<Device> devices;
 
-    public Bus(int id, List<Device> devices) {
-        this.id = id;
+    public Bus(List<Device> devices) {
+        this.id = BusIDGenerator.generateBusID();
         this.devices = devices;
     }
 
@@ -22,14 +22,16 @@ public class Bus {
 
         this.getDevices().get(deviceIndex).recieveMessage(message);
     }
-    public void analyzeMessage(Message message) {
+    public boolean analyzeMessage(Message message) {
+
         System.out.println(message.getPayload());
+        return true;
     }
 
     public void addDevice(Device device) {
         this.getDevices().add(device);
     }
-    
+
     public boolean removeDevice(Device device) {
         for(int i = 0; i < this.getDevices().size(); i++) {
             if (this.getDevices().get(i).getID() == device.getID()) {
