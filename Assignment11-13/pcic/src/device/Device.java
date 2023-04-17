@@ -51,8 +51,9 @@ public abstract class Device {
         return true;
     }
 
-    public void sendMessage(Message message, Bus bus) {
+    public boolean sendMessage(Message message, Bus bus) {
         bus.processMessage(message);
+        return true;
     }
 
     public void configurePort(int portNum, Application application) {
