@@ -21,11 +21,11 @@ public class Bus {
         DeviceException.verifyPort(message.getPortID(), this.getDevices().get(deviceIndex));
 
         this.getDevices().get(deviceIndex).recieveMessage(message);
+        analyzeMessage(message);
     }
-    public boolean analyzeMessage(Message message) {
+    public void analyzeMessage(Message message) {
 
         System.out.println(message.getPayload());
-        return true;
     }
 
     public void addDevice(Device device) {
