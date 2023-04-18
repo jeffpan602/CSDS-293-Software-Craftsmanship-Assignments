@@ -4,6 +4,7 @@ import bus.Bus;
 import message.Message;
 import message.MessageException;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +35,8 @@ public abstract class Device {
 
     public boolean receiveMessage(Message message) {
         if(message.isBroadcast()) {
-            for(Integer portNum: getPortMap().keySet()) {
-                getPortMap().get(portNum).process(message);
+            for(Application app: getPortMap().values()) {
+                app.process(message);
             }
         }
         else {
