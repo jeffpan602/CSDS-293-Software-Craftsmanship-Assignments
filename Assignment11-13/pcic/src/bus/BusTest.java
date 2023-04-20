@@ -2,12 +2,18 @@ package bus;
 import device.SATADriver;
 import org.junit.*;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 
 import static org.junit.Assert.*;
-public class BusTest {
 
+/**
+ * Test class for Bus
+ * @author Jeffrey Pan
+ */
+public class BusTest {
+    /**
+     * Test method to test removeDevice()
+     */
     @Test
     public void testRemoveDevice() {
         Bus bus = new Bus(new LinkedList<>());

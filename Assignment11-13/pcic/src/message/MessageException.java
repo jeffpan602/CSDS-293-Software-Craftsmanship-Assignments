@@ -10,6 +10,10 @@ public class MessageException extends Exception {
     //Error field for a Message exception
     private final Error error;
 
+    /**
+     * Constructor to create an instance of MessageException
+     * @param e Error enum indicating the type of this MessageException error
+     */
     public MessageException(Error e) {
         this.error = e;
     }

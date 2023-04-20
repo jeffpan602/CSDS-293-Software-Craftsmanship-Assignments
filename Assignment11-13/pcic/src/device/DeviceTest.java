@@ -12,8 +12,13 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * Class to test Device methods
+ */
 public class DeviceTest {
-
+    /**
+     * Method to test getID()
+     */
     @Test
     public void testGetID() {
         int id = DeviceIDGenerator.getCurrentID();
@@ -21,6 +26,9 @@ public class DeviceTest {
         assertEquals(device.getID(), id);
     }
 
+    /**
+     * Method to test getPortMap()
+     */
     @Test
     public void testGetPortMap() {
         Device deviceWithEmptyPortMap = new SATADriver();
@@ -39,6 +47,9 @@ public class DeviceTest {
         assertEquals(driver2, device.getPortMap().get(81));
     }
 
+    /**
+     * Method to test getBusID()
+     */
     @Test
     public void testGetBusID() {
         Bus bus = new Bus(new LinkedList<>());
@@ -47,6 +58,9 @@ public class DeviceTest {
         assertEquals(device.getBusID(), bus.getID());
     }
 
+    /**
+     * Method to test configurePort()
+     */
     @Test
     public void testConfigurePort() {
         Device device = new SATADriver();
@@ -56,6 +70,9 @@ public class DeviceTest {
         assertEquals(device.getPortMap().get(80), driver);
     }
 
+    /**
+     * Method to test configureToBus()
+     */
     @Test
     public void testConfigureToBus() {
         int busID = BusIDGenerator.getCurrentID();
@@ -65,6 +82,10 @@ public class DeviceTest {
         assertEquals(bus.getID(), busID);
         assertTrue(bus.getDevices().contains(device));
     }
+
+    /**
+     * Method to test configurePort() that will throw expcetions
+     */
     @Test (expected = IllegalArgumentException.class)
     public void configurePortException() {
         Device emptyDevice = new SATADriver();

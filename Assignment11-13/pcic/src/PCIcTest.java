@@ -11,8 +11,14 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
+/**
+ * Class to test messaging across the PCIc bus
+ * @author Jeffrey Pan
+ */
 public class PCIcTest {
-
+    /**
+     * Method to test sending a message across Devices on a PCIc bus
+     */
     @Test
     public void test() {
         Bus bus = new Bus(new LinkedList<Device>());
@@ -32,6 +38,9 @@ public class PCIcTest {
         sata.sendMessage(message2, bus);
     }
 
+    /**
+     * Method to test messaging across Devices when no port on the receiving Device exists
+     */
     @Test
     public void testPortDNE() {
         Bus bus = new Bus(new LinkedList<Device>());
@@ -43,6 +52,9 @@ public class PCIcTest {
         assertFalse(processed);
     }
 
+    /**
+     * Message to test if a Device exists on a Bus
+     */
     @Test (expected = IllegalArgumentException.class)
     public void testDeviceOnBus() {
         Bus bus = new Bus(new LinkedList<Device>());
@@ -51,6 +63,12 @@ public class PCIcTest {
         bus.processMessage(message);
     }
 
+    /**
+     * Stress test for the PCIc design
+     * Creates a bus with three Devices connected to it
+     * Randomly creates 1000 payloads to random portNumbers on the 3 devices randomly
+     * Checks if the payload is consistent throughout after the Application processes the Message
+     */
     @Test
     public void stressTest() {
         Bus bus = new Bus(new LinkedList<Device>());
@@ -76,11 +94,21 @@ public class PCIcTest {
             assertEquals(binaryString, devices[randomNum].getPortMap().get(randomPortNum).process(message));
         }
     }
+
+    /**
+     * Helper method to configure the Ports of the Devices in the stress test
+     * @param device Random Device in stress test
+     */
     private void configurePorts(Device device) {
         for(int i = 80; i < 91; i++) {
             device.configurePort(i, new SSDDriver("ssd"+i));
         }
     }
+
+    /**
+     * Helper method to generate random binary strings for the payload
+     * @return randomly generated binary String
+     */
     private String generateRandomBinaryString() {
         int length = 8; // specify the length of the binary string
         Random rand = new Random();
