@@ -11,7 +11,7 @@ public abstract class Application {
 
     /**
      * Constructor to create an instance of an Application
-     * @param name
+     * @param name String name for this Application
      */
     public Application(String name) {
         this.name = name;
